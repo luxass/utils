@@ -6,6 +6,7 @@ export default defineConfig({
     "./src/string.ts",
     "./src/types.ts",
     "./src/guards.ts",
+    "./src/number.ts",
   ],
   format: ["cjs", "esm"],
   clean: true,

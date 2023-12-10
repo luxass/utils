@@ -43,6 +43,16 @@
         "default": "./dist/guards.cjs"
       }
     },
+    "./number": {
+      "import": {
+        "types": "./dist/number.d.ts",
+        "default": "./dist/number.mjs"
+      },
+      "require": {
+        "types": "./dist/number.d.cts",
+        "default": "./dist/number.cjs"
+      }
+    },
     "./types": {
       "import": {
         "types": "./dist/types.d.ts",

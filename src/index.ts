@@ -15,6 +15,10 @@ export {
 } from "./guards";
 
 export {
+  clamp,
+} from "./number";
+
+export {
   capitalize,
   toCamelCase,
   toKebabCase,
