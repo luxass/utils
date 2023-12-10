@@ -11,9 +11,7 @@ npm install @luxass/utils
 
 ## 📚 Usage
 
-```ts
-import { } from "@luxass/utils";
-```
+You can view the documentation [here](https://www.jsdocs.io/package/@luxass/utils).
 
 ## 📄 License
 
