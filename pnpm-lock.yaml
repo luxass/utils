@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  jsonc-parse:
-    specifier: ^1.2.0
-    version: 1.2.0
-
 devDependencies:
   '@luxass/eslint-config':
     specifier: ^4.0.0-beta.16
@@ -25,9 +20,6 @@ devDependencies:
   tsup:
     specifier: ^8.0.1
     version: 8.0.1(typescript@5.3.3)
-  type-fest:
-    specifier: ^4.8.3
-    version: 4.8.3
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -508,11 +500,6 @@ packages:
       - typescript
       - vitest
     dev: true
-
-  /@luxass/strip-json-comments@1.1.1:
-    resolution: {integrity: sha512-8mBMXrGzHbbtUnNtUfM2/0jDnFdeC2H1xkydGEQnC747AEL/46HatlKUj/Oej7XxbtY3GuBFdFG9PcEWR0Ysxg==}
-    engines: {node: '>=18'}
-    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2842,13 +2829,6 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /jsonc-parse@1.2.0:
-    resolution: {integrity: sha512-I7M5dBoP3Gt/4aPJ/24ZWdCC8J15958SJBS2G5lhxcUcsJyLI5uUC2Bfabsnmy5FLz2aIPpIsOfCFIzLXFyFnQ==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@luxass/strip-json-comments': 1.1.1
-    dev: false
-
   /jsonc-parser@3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
     dev: true
@@ -3922,11 +3902,6 @@ packages:
   /type-fest@0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
-    dev: true
-
-  /type-fest@4.8.3:
-    resolution: {integrity: sha512-//BaTm14Q/gHBn09xlnKNqfI8t6bmdzx2DXYfPBNofN0WUybCEUDcbCWcTa0oF09lzLjZgPphXAsvRiMK0V6Bw==}
-    engines: {node: '>=16'}
     dev: true
 
   /typed-array-buffer@1.0.0:
