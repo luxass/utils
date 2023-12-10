@@ -1,0 +1,88 @@
+{
+  "name": "@luxass/utils",
+  "version": "0.1.0",
+  "description": "A collection of utilities for JavaScript/TypeScript",
+  "type": "module",
+  "author": {
+    "name": "Lucas Nørgård",
+    "email": "lucasnrgaard@gmail.com",
+    "url": "https://luxass.dev"
+  },
+  "packageManager": "pnpm@8.12.0",
+  "license": "MIT",
+  "homepage": "https://github.com/luxass/utils",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luxass/utils"
+  },
+  "bugs": {
+    "url": "https://github.com/luxass/utils/issues"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./guards": {
+      "import": {
+        "types": "./dist/guards.d.ts",
+        "default": "./dist/guards.mjs"
+      },
+      "require": {
+        "types": "./dist/guards.d.cts",
+        "default": "./dist/guards.cjs"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/types.d.ts",
+        "default": "./dist/types.mjs"
+      },
+      "require": {
+        "types": "./dist/types.d.cts",
+        "default": "./dist/types.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "jsonc-parse": "^1.2.0"
+  },
+  "devDependencies": {
+    "@luxass/eslint-config": "^4.0.0-beta.16",
+    "@types/node": "^20.10.4",
+    "eslint": "^8.55.0",
+    "eslint-plugin-format": "^0.1.0",
+    "tsup": "^8.0.1",
+    "type-fest": "^4.8.3",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.4"
+  }
+}
