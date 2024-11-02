@@ -1,17 +1,8 @@
-export type {
-  Arrayable,
-  Awaitable,
-  ElementOf,
-  InferArguments,
-  Nullable,
-  Nullish,
-} from "./types";
-
 export {
-  isTruthy,
-  isNotUndefined,
   isNotNull,
   isNotNullish,
+  isNotUndefined,
+  isTruthy,
 } from "./guards";
 
 export {
@@ -25,3 +16,12 @@ export {
   toPascalCase,
   toSnakeCase,
 } from "./string";
+
+export type {
+  Arrayable,
+  Awaitable,
+  ElementOf,
+  InferArguments,
+  Nullable,
+  Nullish,
+} from "./types";

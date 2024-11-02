@@ -1,5 +1,5 @@
-import { expectTypeOf, it } from "vitest";
 import type { Arrayable, Awaitable, ElementOf, InferArguments, Nullable, Nullish } from "./types";
+import { expectTypeOf, it } from "vitest";
 
 it("should return T or Promise<T>", () => {
   expectTypeOf<Awaitable<string>>().toEqualTypeOf<string | PromiseLike<string>>();
