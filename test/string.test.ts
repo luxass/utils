@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { capitalize, toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../src/string";
+import { capitalize, dedent, toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../src/string";
 
 describe("capitalize", () => {
   it.each([
@@ -89,5 +89,77 @@ describe("toSnakeCase", () => {
     ["with-dashes", "with_dashes"],
   ])("toSnakeCase(%s) = %s", (input, expected) => {
     expect(toSnakeCase(input)).toEqual(expected);
+  });
+});
+
+describe("dedent", () => {
+  it("should remove common indentation from a string", () => {
+    const input = `
+      hello
+        world
+          !
+    `;
+    const expected = "hello\n  world\n    !";
+    expect(dedent(input)).toEqual(expected);
+  });
+
+  it("should handle template strings", () => {
+    const input = dedent`
+      hello
+        world
+          !
+    `;
+    const expected = "hello\n  world\n    !";
+    expect(input).toEqual(expected);
+  });
+
+  it("should handle empty strings", () => {
+    expect(dedent("")).toEqual("");
+  });
+
+  it("should remove leading and trailing empty lines", () => {
+    const input = `
+
+      hello
+        world
+
+    `;
+    const expected = "hello\n  world";
+    expect(dedent(input)).toEqual(expected);
+  });
+
+  it("should handle strings with no indentation", () => {
+    const input = "hello\nworld\n!";
+    expect(dedent(input)).toEqual("hello\nworld\n!");
+  });
+
+  it("should handle strings with inconsistent indentation", () => {
+    const input = `
+      hello
+    world
+        !
+    `;
+    const expected = "  hello\nworld\n    !";
+    expect(dedent(input)).toEqual(expected);
+  });
+
+  it("should handle strings with tabs", () => {
+    const input = `
+\t\thello
+\t\t\tworld
+\t\t!
+    `;
+    const expected = "hello\n\tworld\n!";
+    expect(dedent(input)).toEqual(expected);
+  });
+
+  it("should preserve empty lines within content", () => {
+    const input = `
+      hello
+
+      world
+    `;
+    const expected = "hello\n\nworld";
+    expect(dedent(input)).toEqual(expected);
   });
 });

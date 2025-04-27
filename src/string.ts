@@ -1,3 +1,5 @@
+const FULL_WHITESPACE_RE = /^\s*$/;
+
 /**
  * Capitalizes the first character of a string and converts the rest to lowercase
  * @param {string} str - The string to capitalize
@@ -131,4 +133,43 @@ export function toSnakeCase(str: string): string {
     .replace(/\s+/g, "_")
     .replace(/_+/g, "_")
     .toLowerCase();
+}
+
+/**
+ * Removes leading and trailing whitespace from each line of a string
+ * @param {TemplateStringsArray | string} str - The string to dedent
+ * @returns {string} The dedented string
+ * @example
+ * ```ts
+ * dedent`
+ *   This is a test.
+ *   This is another line.
+ * `
+ * // "This is a test.\nThis is another line."
+ * ```
+ */
+export function dedent(str: TemplateStringsArray | string): string {
+  const lines = ((typeof str === "string" ? str : str[0]) ?? "").split("\n");
+  const whitespaceLines = lines.map((line) => FULL_WHITESPACE_RE.test(line));
+
+  const commonIndent = lines
+    .reduce((min, line, idx) => {
+      if (whitespaceLines[idx]) {
+        return min;
+      }
+      const indent = line.match(/^\s*/)?.[0].length;
+      return indent === undefined ? min : Math.min(min, indent);
+    }, Number.POSITIVE_INFINITY);
+
+  const firstNonWhitespaceLine = whitespaceLines.findIndex((isWhitespace) => !isWhitespace);
+  const lastNonWhitespaceLine = whitespaceLines.lastIndexOf(false);
+
+  // skip empty lines at the beginning and end
+  return lines
+    .slice(
+      firstNonWhitespaceLine >= 0 ? firstNonWhitespaceLine : 0,
+      lastNonWhitespaceLine >= 0 ? lastNonWhitespaceLine + 1 : lines.length,
+    )
+    .map((line) => line.slice(commonIndent))
+    .join("\n");
 }

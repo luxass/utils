@@ -11,6 +11,7 @@ export {
 
 export {
   capitalize,
+  dedent,
   toCamelCase,
   toKebabCase,
   toPascalCase,
