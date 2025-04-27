@@ -5,4 +5,5 @@ import {
 
 export default luxass({
   formatters: true,
+  type: "lib",
 });
