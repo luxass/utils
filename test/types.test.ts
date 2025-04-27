@@ -1,4 +1,4 @@
-import type { Arrayable, Awaitable, ElementOf, InferArguments, Nullable, Nullish } from "./types";
+import type { Arrayable, Awaitable, ElementOf, InferArguments, Nullable, Nullish } from "../src/types";
 import { expectTypeOf, it } from "vitest";
 
 it("should return T or Promise<T>", () => {

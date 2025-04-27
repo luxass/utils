@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 
-import { clamp } from "./number";
+import { clamp } from "../src/number";
 
 it("should clamp a value between a min and max value", () => {
   expect(clamp(5, 0, 10)).toEqual(5);

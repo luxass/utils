@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { isNotNull, isNotNullish, isNotUndefined, isTruthy } from "./guards";
+import { isNotNull, isNotNullish, isNotUndefined, isTruthy } from "../src/guards";
 
 it("should filter out null and undefined values", () => {
   const input = [true, false, 0, 1, "", "hello", null, undefined];
