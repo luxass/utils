@@ -26,7 +26,7 @@
     ".": {
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+        "default": "./dist/index.js"
       },
       "require": {
         "types": "./dist/index.d.cts",
@@ -36,7 +36,7 @@
     "./guards": {
       "import": {
         "types": "./dist/guards.d.ts",
-        "default": "./dist/guards.mjs"
+        "default": "./dist/guards.js"
       },
       "require": {
         "types": "./dist/guards.d.cts",
@@ -46,7 +46,7 @@
     "./number": {
       "import": {
         "types": "./dist/number.d.ts",
-        "default": "./dist/number.mjs"
+        "default": "./dist/number.js"
       },
       "require": {
         "types": "./dist/number.d.cts",
@@ -56,7 +56,7 @@
     "./types": {
       "import": {
         "types": "./dist/types.d.ts",
-        "default": "./dist/types.mjs"
+        "default": "./dist/types.js"
       },
       "require": {
         "types": "./dist/types.d.cts",
@@ -66,7 +66,7 @@
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -75,8 +75,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
     "test": "vitest --run",
     "test:watch": "vitest",
     "lint": "eslint .",
@@ -87,7 +87,8 @@
     "@types/node": "^22.15.2",
     "eslint": "^9.25.1",
     "eslint-plugin-format": "^1.0.1",
-    "tsup": "^8.4.0",
+    "publint": "^0.3.12",
+    "tsdown": "^0.9.9",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2"
   }
