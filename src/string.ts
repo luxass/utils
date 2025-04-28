@@ -156,7 +156,7 @@ export function dedent(
   return internal_dedent(strings, values, false);
 }
 
-dedent.escape = dedentEscape;
+dedent.escape = dedentRaw;
 
 /**
  * Removes leading and trailing whitespace from each line of a string
@@ -170,9 +170,9 @@ dedent.escape = dedentEscape;
  * // "This is a test.\nThis is another line."
  * ```
  */
-export function dedentEscape(literals: string): string;
-export function dedentEscape(strings: TemplateStringsArray, ...values: unknown[]): string;
-export function dedentEscape(
+export function dedentRaw(literals: string): string;
+export function dedentRaw(strings: TemplateStringsArray, ...values: unknown[]): string;
+export function dedentRaw(
   strings: TemplateStringsArray | string,
   ...values: unknown[]
 ): string {
@@ -183,23 +183,14 @@ export function dedentEscape(
 function internal_dedent(
   strings: TemplateStringsArray | string,
   values: unknown[],
-  escape: boolean = false,
+  raw: boolean = false,
 ): string {
-  const raw = typeof strings === "string" ? [strings] : strings.raw;
+  const _raw = typeof strings === "string" ? [strings] : raw ? strings.raw : strings;
   let result = "";
 
-  for (let i = 0; i < raw.length; i++) {
-    let next = raw[i];
+  for (let i = 0; i < _raw.length; i++) {
+    const next = _raw[i];
     result += next;
-
-    if (escape && next != null) {
-      // handle escaped newlines, backticks, and interpolation characters
-      next = next
-        .replace(/\\\n[ \t]*/g, "")
-        .replace(/\\`/g, "`")
-        .replace(/\\\$/g, "$")
-        .replace(/\\\{/g, "{");
-    }
 
     if (i < values.length) {
       result += values[i];
