@@ -156,6 +156,8 @@ export function dedent(
   return internal_dedent(strings, values, false);
 }
 
+dedent.escape = dedentEscape;
+
 /**
  * Removes leading and trailing whitespace from each line of a string
  * @param {TemplateStringsArray | string} literals - The string to dedent
