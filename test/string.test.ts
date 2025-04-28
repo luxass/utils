@@ -185,3 +185,55 @@ describe("dedent", () => {
     expect(dedent(input)).toEqual(expected);
   });
 });
+
+describe("dedentEscape", () => {
+  it("should handle escaped newlines", () => {
+    const input = `
+      hello\
+      world
+    `;
+    const expected = "helloworld";
+    expect(dedent.escape(input)).toEqual(expected);
+  });
+
+  it("should handle escaped backticks", () => {
+    const input = `
+      const code = \`hello\`;
+    `;
+    const expected = "const code = `hello`;";
+    expect(dedent.escape(input)).toEqual(expected);
+  });
+
+  it("should handle escaped interpolation", () => {
+    const input = String.raw`
+      \${notVariable}
+      \${123}
+    `;
+    const expected = String.raw`\${notVariable}
+\${123}`;
+    expect(dedent.escape(input)).toEqual(expected);
+  });
+
+  it("should handle escaped curly braces", () => {
+    const input = `
+      function test() \{
+        return true;
+      \}
+    `;
+    const expected = "function test() {\n  return true;\n}";
+    expect(dedent.escape(input)).toEqual(expected);
+  });
+
+  it("should handle mixed escaped and unescaped content", () => {
+    const name = "world";
+    const input = dedent.escape`
+      hello \${escaped}
+      ${name} \`code\`
+      \{object\}
+    `;
+    const expected = String.raw`hello \${escaped}
+world \`code\`
+{object}`;
+    expect(input).toEqual(expected);
+  });
+});
