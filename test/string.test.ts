@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { capitalize, dedent, toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../src/string";
+import { capitalize, dedent, dedentRaw, toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../src/string";
 
 describe("capitalize", () => {
   it.each([
@@ -171,6 +171,100 @@ describe("dedent", () => {
           !
     `;
     const expected = "hello\n  world\n    !";
+    expect(input).toEqual(expected);
+  });
+
+  it("should handle text with unicode spaces", () => {
+    const input = `
+      hello\u200B
+        world\u200B
+          !
+    `;
+
+    const expected = "hello\u200B\n  world\u200B\n    !";
+    expect(dedent(input)).toEqual(expected);
+  });
+});
+
+describe("dedentEscape", () => {
+  it("should handle string literals", () => {
+    const input = `
+      const str = "hello";
+      console.log(str);
+    `;
+    const expected = "const str = \"hello\";\nconsole.log(str);";
+    expect(dedentRaw(input)).toEqual(expected);
+  });
+
+  it("should handle template literals", () => {
+    const name = "world";
+    const input = dedentRaw`
+      const greeting = "hello ${name}";
+      console.log(greeting);
+    `;
+    const expected = "const greeting = \"hello world\";\nconsole.log(greeting);";
+    expect(input).toEqual(expected);
+  });
+
+  it("should handle raw template strings", () => {
+    const input = String.raw`
+      const regex = /\d+/;
+      const str = "hello\nworld";
+    `;
+    const expected = "const regex = /\\d+/;\nconst str = \"hello\\nworld\";";
+    expect(dedentRaw(input)).toEqual(expected);
+  });
+
+  it("should handle mixed indentation", () => {
+    const input = `
+      // 2 spaces
+        // 4 spaces
+      // back to 2
+    `;
+    const expected = "// 2 spaces\n  // 4 spaces\n// back to 2";
+    expect(dedentRaw(input)).toEqual(expected);
+  });
+
+  it("should handle empty strings", () => {
+    expect(dedentRaw("")).toEqual("");
+  });
+
+  it("should handle single line strings", () => {
+    expect(dedentRaw("  hello  ")).toEqual("hello  ");
+  });
+
+  it("should preserve empty lines in the middle", () => {
+    const input = `
+      line1
+
+      line2
+    `;
+    const expected = "line1\n\nline2";
+    expect(dedentRaw(input)).toEqual(expected);
+  });
+
+  it("should handle strings with only whitespace", () => {
+    const input = "  \n    \n  ";
+    expect(dedentRaw(input)).toEqual("\n\n");
+  });
+
+  it("should handle strings with unicode whitespace", () => {
+    const input = `
+      hello\u200B
+        world\u200B
+    `;
+    const expected = "hello\u200B\n  world\u200B";
+    expect(dedentRaw(input)).toEqual(expected);
+  });
+
+  it("should handle template literals with expressions", () => {
+    const a = 1;
+    const b = 2;
+    const input = dedentRaw`
+      ${a} + ${b} = ${a + b}
+        nested ${a + b} math
+    `;
+    const expected = "1 + 2 = 3\n  nested 3 math";
     expect(input).toEqual(expected);
   });
 });
