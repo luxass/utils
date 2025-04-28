@@ -173,4 +173,15 @@ describe("dedent", () => {
     const expected = "hello\n  world\n    !";
     expect(input).toEqual(expected);
   });
+
+  it("should handle text with unicode spaces", () => {
+    const input = `
+      hello\u200B
+        world\u200B
+          !
+    `;
+
+    const expected = "hello\u200B\n  world\u200B\n    !";
+    expect(dedent(input)).toEqual(expected);
+  });
 });

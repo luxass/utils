@@ -140,12 +140,12 @@ export function toSnakeCase(str: string): string {
  * @param {TemplateStringsArray | string} literals - The string to dedent
  * @returns {string} The dedented string
  * @example ```ts
-dedent`
-  This is a test.
-  This is another line.
-`
-// "This is a test.\nThis is another line."
-```
+ * dedent`
+ *   This is a test.
+ *   This is another line.
+ * `
+ * // "This is a test.\nThis is another line."
+ * ```
  */
 export function dedent(literals: string): string;
 export function dedent(strings: TemplateStringsArray, ...values: unknown[]): string;
@@ -153,12 +153,51 @@ export function dedent(
   strings: TemplateStringsArray | string,
   ...values: unknown[]
 ): string {
+  return internal_dedent(strings, values, false);
+}
+
+/**
+ * Removes leading and trailing whitespace from each line of a string
+ * @param {TemplateStringsArray | string} literals - The string to dedent
+ * @returns {string} The dedented string
+ * @example ```ts
+ * dedent`
+ *   This is a test.
+ *   This is another line.
+ * `
+ * // "This is a test.\nThis is another line."
+ * ```
+ */
+export function dedentEscape(literals: string): string;
+export function dedentEscape(strings: TemplateStringsArray, ...values: unknown[]): string;
+export function dedentEscape(
+  strings: TemplateStringsArray | string,
+  ...values: unknown[]
+): string {
+  return internal_dedent(strings, values, true);
+}
+
+/** @internal */
+function internal_dedent(
+  strings: TemplateStringsArray | string,
+  values: unknown[],
+  escape: boolean = false,
+): string {
   const raw = typeof strings === "string" ? [strings] : strings.raw;
   let result = "";
-  for (let i = 0; i < raw.length; i++) {
-    const next = raw[i];
 
+  for (let i = 0; i < raw.length; i++) {
+    let next = raw[i];
     result += next;
+
+    if (escape && next != null) {
+      // handle escaped newlines, backticks, and interpolation characters
+      next = next
+        .replace(/\\\n[ \t]*/g, "")
+        .replace(/\\`/g, "`")
+        .replace(/\\\$/g, "$")
+        .replace(/\\\{/g, "{");
+    }
 
     if (i < values.length) {
       result += values[i];
