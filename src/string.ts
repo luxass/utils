@@ -137,21 +137,36 @@ export function toSnakeCase(str: string): string {
 
 /**
  * Removes leading and trailing whitespace from each line of a string
- * @param {TemplateStringsArray | string} str - The string to dedent
+ * @param {TemplateStringsArray | string} literals - The string to dedent
  * @returns {string} The dedented string
- * @example
- * ```ts
- * dedent`
- *   This is a test.
- *   This is another line.
- * `
- * // "This is a test.\nThis is another line."
- * ```
+ * @example ```ts
+dedent`
+  This is a test.
+  This is another line.
+`
+// "This is a test.\nThis is another line."
+```
  */
-export function dedent(str: TemplateStringsArray | string): string {
-  const lines = ((typeof str === "string" ? str : str[0]) ?? "").split("\n");
-  const whitespaceLines = lines.map((line) => FULL_WHITESPACE_RE.test(line));
+export function dedent(literals: string): string;
+export function dedent(strings: TemplateStringsArray, ...values: unknown[]): string;
+export function dedent(
+  strings: TemplateStringsArray | string,
+  ...values: unknown[]
+): string {
+  const raw = typeof strings === "string" ? [strings] : strings.raw;
+  let result = "";
+  for (let i = 0; i < raw.length; i++) {
+    const next = raw[i];
 
+    result += next;
+
+    if (i < values.length) {
+      result += values[i];
+    }
+  }
+
+  const lines = result.split("\n");
+  const whitespaceLines = lines.map((line) => FULL_WHITESPACE_RE.test(line));
   const commonIndent = lines
     .reduce((min, line, idx) => {
       if (whitespaceLines[idx]) {

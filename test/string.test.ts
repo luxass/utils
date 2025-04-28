@@ -162,4 +162,15 @@ describe("dedent", () => {
     const expected = "hello\n\nworld";
     expect(dedent(input)).toEqual(expected);
   });
+
+  it("should be able to use interpolated values", () => {
+    const name = "world";
+    const input = dedent`
+      hello
+        ${name}
+          !
+    `;
+    const expected = "hello\n  world\n    !";
+    expect(input).toEqual(expected);
+  });
 });
