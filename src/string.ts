@@ -156,7 +156,7 @@ export function dedent(
   return internal_dedent(strings, values, false);
 }
 
-dedent.escape = dedentRaw;
+dedent.raw = dedentRaw;
 
 /**
  * Removes leading and trailing whitespace from each line of a string
