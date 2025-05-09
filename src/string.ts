@@ -220,3 +220,20 @@ function internal_dedent(
     .map((line) => line.slice(commonIndent))
     .join("\n");
 }
+
+/**
+ * Ensures a string is a valid JavaScript identifier by prefixing with an underscore if necessary
+ * @param {string} str - The string to sanitize
+ * @returns {string} A valid JavaScript identifier
+ * @example
+ * ```ts
+ * sanitizeIdentifier("validName") // "validName"
+ * sanitizeIdentifier("123invalid") // "_123invalid"
+ * sanitizeIdentifier("$valid") // "$valid"
+ * sanitizeIdentifier("_valid") // "_valid"
+ * ```
+ */
+export function sanitizeIdentifier(str: string): string {
+  const cleaned = str.replace(/[^\w$]/g, "");
+  return /^[A-Z_$]/i.test(cleaned) ? cleaned : `_${cleaned}`;
+}

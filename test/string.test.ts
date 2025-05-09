@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { capitalize, dedent, dedentRaw, toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../src/string";
+import { capitalize, dedent, dedentRaw, sanitizeIdentifier, toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../src/string";
 
 describe("capitalize", () => {
   it.each([
@@ -266,5 +266,50 @@ describe("dedentEscape", () => {
     `;
     const expected = "1 + 2 = 3\n  nested 3 math";
     expect(input).toEqual(expected);
+  });
+});
+
+describe("sanitizeIdentifier", () => {
+  it.each([
+    ["validName", "validName"],
+    ["$valid", "$valid"],
+    ["_valid", "_valid"],
+    ["PascalCase", "PascalCase"],
+    ["camelCase", "camelCase"],
+    ["_123", "_123"],
+    ["$123", "$123"],
+    ["123invalid", "_123invalid"],
+    ["1abc", "_1abc"],
+    ["42x", "_42x"],
+    ["9_underscore", "_9_underscore"],
+    ["", "_"],
+    ["0", "_0"],
+    ["9", "_9"],
+    ["12@asd*", "_12asd"],
+  ])("sanitizeIdentifier(%s) = %s", (input, expected) => {
+    expect(sanitizeIdentifier(input)).toEqual(expected);
+  });
+
+  describe("should make invalid identifiers valid JavaScript identifiers", () => {
+    it.each([
+      "123test",
+      "456var",
+      "789const",
+    ])("sanitizeIdentifier(%s) = %s", (input) => {
+      const sanitized = sanitizeIdentifier(input);
+      // Test if the sanitized identifier is a valid JavaScript identifier
+      expect(/^[A-Z_$][\w$]*$/i.test(sanitized)).toBe(true);
+    });
+  });
+
+  describe("should not modify already valid identifiers", () => {
+    it.each([
+      "test",
+      "_test",
+      "$test",
+      "Test",
+    ])("sanitizeIdentifier(%s) = %s", (input) => {
+      expect(sanitizeIdentifier(input)).toEqual(input);
+    });
   });
 });
