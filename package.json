@@ -23,49 +23,14 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./guards": {
-      "import": {
-        "types": "./dist/guards.d.ts",
-        "default": "./dist/guards.js"
-      },
-      "require": {
-        "types": "./dist/guards.d.cts",
-        "default": "./dist/guards.cjs"
-      }
-    },
-    "./number": {
-      "import": {
-        "types": "./dist/number.d.ts",
-        "default": "./dist/number.js"
-      },
-      "require": {
-        "types": "./dist/number.d.cts",
-        "default": "./dist/number.cjs"
-      }
-    },
-    "./types": {
-      "import": {
-        "types": "./dist/types.d.ts",
-        "default": "./dist/types.js"
-      },
-      "require": {
-        "types": "./dist/types.d.cts",
-        "default": "./dist/types.cjs"
-      }
-    },
+    ".": "./dist/index.js",
+    "./string": "./dist/string.js",
+    "./guards": "./dist/guards.js",
+    "./number": "./dist/number.js",
+    "./types": "./dist/types.js",
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -91,6 +56,7 @@
     "publint": "^0.3.12",
     "tsdown": "^0.9.9",
     "typescript": "^5.8.3",
-    "vitest": "^3.1.2"
+    "vitest": "^3.1.2",
+    "vitest-package-exports": "^0.1.1"
   }
 }
