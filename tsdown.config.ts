@@ -8,7 +8,7 @@ export default defineConfig({
     "./src/guards.ts",
     "./src/number.ts",
   ],
-  format: ["esm", "cjs"],
+  format: "esm",
   clean: true,
   dts: true,
   treeshake: true,
