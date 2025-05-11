@@ -1,4 +1,9 @@
 export {
+  invariant,
+  InvariantError,
+} from "./common";
+
+export {
   isNotNull,
   isNotNullish,
   isNotUndefined,

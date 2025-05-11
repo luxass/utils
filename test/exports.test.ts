@@ -11,11 +11,13 @@ it("exports-snapshot", async () => {
   expect(manifest.exports).toMatchInlineSnapshot(`
       {
         ".": {
+          "InvariantError": "function",
           "capitalize": "function",
           "clamp": "function",
           "dedent": "function",
           "dedentRaw": "function",
           "formatStr": "function",
+          "invariant": "function",
           "isNotNull": "function",
           "isNotNullish": "function",
           "isNotUndefined": "function",
