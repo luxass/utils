@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { capitalize, dedent, dedentRaw, sanitizeIdentifier, toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../src/string";
+import { capitalize, dedent, dedentRaw, formatStr, sanitizeIdentifier, toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../src/string";
 
 describe("capitalize", () => {
   it.each([
@@ -311,5 +311,65 @@ describe("sanitizeIdentifier", () => {
     ])("sanitizeIdentifier(%s) = %s", (input) => {
       expect(sanitizeIdentifier(input)).toEqual(input);
     });
+  });
+});
+
+describe("formatStr", () => {
+  it("should handle string placeholders (%s)", () => {
+    expect(formatStr("Hello %s", "world")).toBe("Hello world");
+    expect(formatStr("%s %s", "hello", "world")).toBe("hello world");
+    expect(formatStr("Start %s end", "middle")).toBe("Start middle end");
+  });
+
+  it("should handle number placeholders (%d, %i)", () => {
+    expect(formatStr("Count: %d", 5)).toBe("Count: 5");
+    expect(formatStr("Integer: %i", 42)).toBe("Integer: 42");
+    expect(formatStr("Values: %d and %i", 10, 20)).toBe("Values: 10 and 20");
+    expect(formatStr("Conversion: %d", "123")).toBe("Conversion: 123");
+  });
+
+  it("should handle JSON placeholders (%j)", () => {
+    expect(formatStr("Data: %j", { name: "test" })).toBe("Data: {\"name\":\"test\"}");
+    expect(formatStr("Array: %j", [1, 2, 3])).toBe("Array: [1,2,3]");
+    expect(formatStr("JSON: %j", { nested: { value: true } }))
+      .toBe("JSON: {\"nested\":{\"value\":true}}");
+  });
+
+  it("should handle object placeholders (%o)", () => {
+    expect(formatStr("Object: %o", { id: 1 })).toBe("Object: {\"id\":1}");
+    expect(formatStr("String with %o", "test")).toBe("String with test");
+
+    expect(formatStr("Object with string: %o", {}))
+      .toBe("Object with string: [object Object]");
+  });
+
+  it("should handle escaped percent signs", () => {
+    expect(formatStr("Escaped %%s", "value")).toBe("Escaped %s value");
+    expect(formatStr("Multiple %% signs %% in %s", "text")).toBe("Multiple % signs % in text");
+  });
+
+  it("should handle extra positional arguments", () => {
+    expect(formatStr("Extra args", 1, 2)).toBe("Extra args 1 2");
+    expect(formatStr("One arg: %s", "first", "second", "third"))
+      .toBe("One arg: first second third");
+    expect(formatStr("No placeholders", "a", "b", "c")).toBe("No placeholders a b c");
+  });
+
+  it("should handle null and undefined values", () => {
+    expect(formatStr("Null: %s", null)).toBe("Null: null");
+    expect(formatStr("Undefined: %s", undefined)).toBe("Undefined: undefined");
+    expect(formatStr("Null number: %d", null)).toBe("Null number: 0");
+    expect(formatStr("Null JSON: %j", null)).toBe("Null JSON: null");
+  });
+
+  it("should not modify strings without placeholders", () => {
+    expect(formatStr("No placeholders")).toBe("No placeholders");
+    expect(formatStr("100% complete")).toBe("100% complete");
+    expect(formatStr("Text with % but no placeholder")).toBe("Text with % but no placeholder");
+  });
+
+  it("should handle mixed placeholders", () => {
+    expect(formatStr("Mixed %s, %d, %j", "string", 42, { key: "value" }))
+      .toBe("Mixed string, 42, {\"key\":\"value\"}");
   });
 });

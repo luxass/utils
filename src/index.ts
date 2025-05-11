@@ -13,6 +13,7 @@ export {
   capitalize,
   dedent,
   dedentRaw,
+  formatStr,
   sanitizeIdentifier,
   toCamelCase,
   toKebabCase,
