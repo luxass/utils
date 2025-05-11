@@ -237,3 +237,85 @@ export function sanitizeIdentifier(str: string): string {
   const cleaned = str.replace(/[^\w$]/g, "");
   return /^[A-Z_$]/i.test(cleaned) ? cleaned : `_${cleaned}`;
 }
+
+const POSITION_REGEX = /(%?)(%([sdijo]))/g;
+
+type Flag = "s" | "d" | "i" | "j" | "o";
+
+/** @internal */
+function serializePositional(positional: unknown, flag: Flag): any {
+  if (flag === "s") {
+    return positional;
+  }
+
+  if (flag === "d" || flag === "i") {
+    return Number(positional);
+  }
+
+  if (flag === "j") {
+    return JSON.stringify(positional);
+  }
+
+  if (flag === "o") {
+    // preserve strings to prevent extra quotes around them.
+    if (typeof positional === "string") {
+      return positional;
+    }
+
+    const json = JSON.stringify(positional);
+
+    // if the positional isn't serializable, return it as-is.
+    if (json === "{}" || json === "[]" || /^\[object .+?\]$/.test(json)) {
+      return positional;
+    }
+
+    return json;
+  }
+}
+
+/**
+ * Formats a string by replacing placeholders with positional values
+ * @param {string} message - The string containing placeholders to be replaced
+ * @param {...any} positionals - The values to insert into the placeholders
+ * @returns {string} The formatted string
+ *
+ * @example
+ * ```ts
+ * formatStr("Hello %s", "world") // "Hello world"
+ * formatStr("Count: %d", 5) // "Count: 5"
+ * formatStr("Data: %j", { name: "test" }) // "Data: {"name":"test"}"
+ * formatStr("Object: %o", { id: 1 }) // "Object: {"id":1}"
+ * formatStr("Escaped %%s", "value") // "Escaped %s"
+ * formatStr("Extra args", 1, 2) // "Extra args 1 2"
+ * ```
+ */
+export function formatStr(message: string, ...positionals: unknown[]): string {
+  if (!positionals.length) {
+    return message;
+  }
+
+  let positionalIndex = 0;
+  let formattedMessage = message.replace(
+    POSITION_REGEX,
+    (match, isEscaped, _, flag) => {
+      const positional = positionals[positionalIndex];
+      const value = serializePositional(positional, flag);
+
+      if (!isEscaped) {
+        positionalIndex++;
+        return value;
+      }
+
+      return match;
+    },
+  );
+
+  // append unresolved positionals to string as-is.
+  if (positionalIndex < positionals.length) {
+    formattedMessage += ` ${positionals.slice(positionalIndex).join(" ")}`;
+  }
+
+  formattedMessage = formattedMessage.replace(/%{2}/g, "%");
+
+  return formattedMessage;
+}
