@@ -84,3 +84,20 @@ export type InferArguments<T> = T extends ((...args: infer A) => any) ? A : neve
 export type Prettify<T> = {
   [K in keyof T]: T[K];
 } & {};
+
+/**
+ * Removes index signatures from a type while preserving specific properties
+ * @param T - The type to remove index signatures from
+ * @returns A new type without index signatures
+ *
+ * @example
+ * ```ts
+ * type WithIndex = { id: number; [key: string]: any }
+ * type Clean = RemoveIndexSignature<WithIndex>
+ * // { id: number }
+ * ```
+ */
+export type RemoveIndexSignature<T> = {
+  // eslint-disable-next-line ts/no-empty-object-type
+  [K in keyof T as {} extends Record<K, 1> ? never : K]: T[K]
+};

@@ -34,4 +34,5 @@ export type {
   Nullable,
   Nullish,
   Prettify,
+  RemoveIndexSignature,
 } from "./types";
