@@ -33,4 +33,5 @@ export type {
   InferArguments,
   Nullable,
   Nullish,
+  Prettify,
 } from "./types";
