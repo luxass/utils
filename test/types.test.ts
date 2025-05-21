@@ -1,4 +1,4 @@
-import type { Arrayable, Awaitable, ElementOf, InferArguments, Nullable, Nullish } from "../src/types";
+import type { Arrayable, Awaitable, ElementOf, InferArguments, Nullable, Nullish, Prettify } from "../src/types";
 import { expectTypeOf, it } from "vitest";
 
 it("should return T or Promise<T>", () => {
@@ -23,4 +23,32 @@ it("should infer the element type of an array", () => {
 
 it("should infer the arguments type of a function", () => {
   expectTypeOf<InferArguments<(a: string, b: number) => void>>().toEqualTypeOf<[a: string, b: number]>();
+});
+
+it("should infer the arguments type of a function with rest parameters", () => {
+  expectTypeOf<InferArguments<(a: string, ...b: number[]) => void>>().toEqualTypeOf<[a: string, ...b: number[]]>();
+});
+
+it("should infer the arguments type of a function with optional parameters", () => {
+  expectTypeOf<InferArguments<(a: string, b?: number) => void>>().toEqualTypeOf<[a: string, b?: number]>();
+});
+
+it("should infer the arguments type of a function with optional and rest parameters", () => {
+  expectTypeOf<InferArguments<(a: string, b?: number, ...c: boolean[]) => void>>().toEqualTypeOf<[a: string, b?: number, ...c: boolean[]]>();
+});
+
+it("should prettify the type", () => {
+  expectTypeOf<Prettify<{
+    a: string;
+    b: number;
+  } & {
+    c: boolean;
+  } & {
+    d?: number;
+  }>>().toEqualTypeOf<{
+    a: string;
+    b: number;
+    c: boolean;
+    d?: number;
+  }>();
 });

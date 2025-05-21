@@ -67,3 +67,20 @@ export type ElementOf<T> = T extends (infer E)[] ? E : never;
  * ```
  */
 export type InferArguments<T> = T extends ((...args: infer A) => any) ? A : never;
+
+/**
+ * Makes complex nested types more readable in editor tooltips by flattening
+ * the type to a simple object type with all properties
+ * @param T - The type to prettify
+ * @returns A simplified representation of the same type
+ *
+ * @example
+ * ```ts
+ * type Messy = { a: string } & { b: number } & { c: boolean }
+ * type Clean = Prettify<Messy>
+ * // { a: string; b: number; c: boolean }
+ * ```
+ */
+export type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
