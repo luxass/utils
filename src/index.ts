@@ -27,10 +27,10 @@ export {
 } from "./string";
 
 export type {
-  Arrayable,
-  Awaitable,
   ElementOf,
   InferArguments,
+  MaybeArray,
+  MaybePromise,
   Nullable,
   Nullish,
   Prettify,
