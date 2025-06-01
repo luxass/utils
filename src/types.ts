@@ -38,9 +38,9 @@ export type Nullable<T> = T | null;
 export type Nullish<T> = T | null | undefined;
 
 /**
- * Array, or not yet
+ * A type that can be an array or a single value.
  */
-export type Arrayable<T> = T | Array<T>;
+export type MaybeArray<T> = T | T[];
 
 /**
  * Infers the element type of an array
