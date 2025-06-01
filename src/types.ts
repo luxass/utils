@@ -43,6 +43,11 @@ export type Nullish<T> = T | null | undefined;
 export type MaybeArray<T> = T | T[];
 
 /**
+ * A type that can be a value or a promise.
+ */
+export type MaybePromise<T> = T | Promise<T>;
+
+/**
  * Infers the element type of an array
  * @param T - Array type
  * @returns The inferred element type
