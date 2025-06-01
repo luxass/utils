@@ -22,6 +22,7 @@ it("exports-snapshot", async () => {
           "isNotNullish": "function",
           "isNotUndefined": "function",
           "isTruthy": "function",
+          "promiseRetry": "function",
           "sanitizeIdentifier": "function",
           "toCamelCase": "function",
           "toKebabCase": "function",
