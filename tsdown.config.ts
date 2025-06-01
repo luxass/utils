@@ -13,4 +13,7 @@ export default defineConfig({
   dts: true,
   treeshake: true,
   publint: true,
+  noExternal: [
+    "p-retry",
+  ],
 });

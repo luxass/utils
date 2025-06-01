@@ -2,7 +2,6 @@ export {
   invariant,
   InvariantError,
 } from "./common";
-
 export {
   isNotNull,
   isNotNullish,
@@ -36,3 +35,7 @@ export type {
   Prettify,
   RemoveIndexSignature,
 } from "./types";
+
+export {
+  promiseRetry,
+} from "./vendor";
