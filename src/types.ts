@@ -1,17 +1,4 @@
 /**
- * Whatever type, or Promise of that type
- * @param T - Type
- * @returns T or Promise<T>
- *
- * @example
- * ```ts
- * type A = Awaitable<string>
- * // string | Promise<string>
- * ```
- */
-export type Awaitable<T> = T | PromiseLike<T>;
-
-/**
  * Whatever type, or null
  * @param T - Type
  * @returns T or null
