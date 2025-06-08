@@ -2,7 +2,6 @@ export {
   invariant,
   InvariantError,
 } from "./common";
-
 export {
   isNotNull,
   isNotNullish,
@@ -27,12 +26,16 @@ export {
 } from "./string";
 
 export type {
-  Arrayable,
-  Awaitable,
   ElementOf,
   InferArguments,
+  MaybeArray,
+  MaybePromise,
   Nullable,
   Nullish,
   Prettify,
   RemoveIndexSignature,
 } from "./types";
+
+export {
+  promiseRetry,
+} from "./vendor";

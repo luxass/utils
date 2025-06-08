@@ -1,17 +1,4 @@
 /**
- * Whatever type, or Promise of that type
- * @param T - Type
- * @returns T or Promise<T>
- *
- * @example
- * ```ts
- * type A = Awaitable<string>
- * // string | Promise<string>
- * ```
- */
-export type Awaitable<T> = T | PromiseLike<T>;
-
-/**
  * Whatever type, or null
  * @param T - Type
  * @returns T or null
@@ -38,9 +25,14 @@ export type Nullable<T> = T | null;
 export type Nullish<T> = T | null | undefined;
 
 /**
- * Array, or not yet
+ * A type that can be an array or a single value.
  */
-export type Arrayable<T> = T | Array<T>;
+export type MaybeArray<T> = T | T[];
+
+/**
+ * A type that can be a value or a promise.
+ */
+export type MaybePromise<T> = T | Promise<T>;
 
 /**
  * Infers the element type of an array

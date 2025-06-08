@@ -1,6 +1,6 @@
 {
   "name": "@luxass/utils",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "A collection of utilities for JavaScript/TypeScript",
   "type": "module",
   "author": {
@@ -46,6 +46,9 @@
     "test:watch": "vitest",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "p-retry": "^6.2.1"
   },
   "devDependencies": {
     "@luxass/eslint-config": "^4.18.1",

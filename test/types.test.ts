@@ -1,9 +1,14 @@
-import type { Arrayable, Awaitable, ElementOf, InferArguments, Nullable, Nullish, Prettify, RemoveIndexSignature } from "../src/types";
+import type {
+  ElementOf,
+  InferArguments,
+  MaybeArray,
+  MaybePromise,
+  Nullable,
+  Nullish,
+  Prettify,
+  RemoveIndexSignature,
+} from "../src/types";
 import { expectTypeOf, it } from "vitest";
-
-it("should return T or Promise<T>", () => {
-  expectTypeOf<Awaitable<string>>().toEqualTypeOf<string | PromiseLike<string>>();
-});
 
 it("should return T or null", () => {
   expectTypeOf<Nullable<string>>().toEqualTypeOf<string | null>();
@@ -14,7 +19,11 @@ it("should return T, undefined, or null", () => {
 });
 
 it("should return T or Array<T>", () => {
-  expectTypeOf<Arrayable<string>>().toEqualTypeOf<string | Array<string>>();
+  expectTypeOf<MaybeArray<string>>().toEqualTypeOf<string | Array<string>>();
+});
+
+it("should return T or Promise<T>", () => {
+  expectTypeOf<MaybePromise<string>>().toEqualTypeOf<string | Promise<string>>();
 });
 
 it("should infer the element type of an array", () => {
