@@ -48,15 +48,13 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "p-retry": "^6.2.1"
-  },
   "devDependencies": {
     "@luxass/eslint-config": "^5.0.0",
     "@types/node": "^22.15.2",
     "@vitest/coverage-v8": "3.2.4",
     "eslint": "^9.30.0",
     "eslint-plugin-format": "^1.0.1",
+    "p-retry": "^6.2.1",
     "publint": "^0.3.12",
     "tsdown": "^0.12.9",
     "typescript": "^5.8.3",
