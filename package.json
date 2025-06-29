@@ -24,9 +24,10 @@
   "sideEffects": false,
   "exports": {
     ".": "./dist/index.js",
-    "./string": "./dist/string.js",
     "./guards": "./dist/guards.js",
     "./number": "./dist/number.js",
+    "./object": "./dist/object.js",
+    "./string": "./dist/string.js",
     "./types": "./dist/types.js",
     "./package.json": "./package.json"
   },
@@ -57,7 +58,7 @@
     "eslint": "^9.27.0",
     "eslint-plugin-format": "^1.0.1",
     "publint": "^0.3.12",
-    "tsdown": "^0.11.12",
+    "tsdown": "^0.12.9",
     "typescript": "^5.8.3",
     "vitest": "^3.1.4",
     "vitest-package-exports": "^0.1.1"

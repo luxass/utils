@@ -14,6 +14,13 @@ export {
 } from "./number";
 
 export {
+  getChangedKeys,
+  getOwnProperty,
+  hasOwnProperty,
+  omit,
+} from "./object";
+
+export {
   capitalize,
   dedent,
   dedentRaw,

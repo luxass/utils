@@ -7,10 +7,12 @@ export default defineConfig({
     "./src/types.ts",
     "./src/guards.ts",
     "./src/number.ts",
+    "./src/object.ts",
   ],
   format: "esm",
   clean: true,
   dts: true,
+  exports: true,
   treeshake: true,
   publint: true,
   noExternal: [
