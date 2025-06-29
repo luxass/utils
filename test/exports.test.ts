@@ -17,11 +17,15 @@ it("exports-snapshot", async () => {
           "dedent": "function",
           "dedentRaw": "function",
           "formatStr": "function",
+          "getChangedKeys": "function",
+          "getOwnProperty": "function",
+          "hasOwnProperty": "function",
           "invariant": "function",
           "isNotNull": "function",
           "isNotNullish": "function",
           "isNotUndefined": "function",
           "isTruthy": "function",
+          "omit": "function",
           "promiseRetry": "function",
           "sanitizeIdentifier": "function",
           "toCamelCase": "function",
@@ -37,6 +41,12 @@ it("exports-snapshot", async () => {
         },
         "./number": {
           "clamp": "function",
+        },
+        "./object": {
+          "getChangedKeys": "function",
+          "getOwnProperty": "function",
+          "hasOwnProperty": "function",
+          "omit": "function",
         },
         "./string": {
           "capitalize": "function",
