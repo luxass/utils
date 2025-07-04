@@ -319,3 +319,81 @@ export function formatStr(message: string, ...positionals: unknown[]): string {
 
   return formattedMessage;
 }
+
+/**
+ * Removes trailing slashes from a string
+ * @param {string} str - The string to remove trailing slashes from
+ * @returns {string} The string with trailing slashes removed
+ *
+ * @example
+ * ```ts
+ * import { trimTrailingSlash } from "@luxass/utils/string";
+ *
+ * trimTrailingSlash("path/to/file/") // "path/to/file"
+ * trimTrailingSlash("path/to/file///") // "path/to/file"
+ * trimTrailingSlash("path/to/file") // "path/to/file"
+ * trimTrailingSlash("") // ""
+ * ```
+ */
+export function trimTrailingSlash(str: string): string {
+  if (!str) return str;
+  return str.replace(/\/+$/, "");
+}
+
+/**
+ * Removes leading slashes from a string
+ * @param {string} str - The string to remove leading slashes from
+ * @returns {string} The string with leading slashes removed
+ *
+ * @example
+ * ```ts
+ * import { trimLeadingSlash } from "@luxass/utils/string";
+ *
+ * trimLeadingSlash("/path/to/file") // "path/to/file"
+ * trimLeadingSlash("///path/to/file") // "path/to/file"
+ * trimLeadingSlash("path/to/file") // "path/to/file"
+ * trimLeadingSlash("") // ""
+ * ```
+ */
+export function trimLeadingSlash(str: string): string {
+  if (!str) return str;
+  return str.replace(/^\/+/, "");
+}
+
+/**
+ * Ensures a string ends with a trailing slash
+ * @param {string} str - The string to append a trailing slash to
+ * @returns {string} The string with a trailing slash appended if not already present
+ *
+ * @example
+ * ```ts
+ * import { appendTrailingSlash } from "@luxass/utils/string";
+ *
+ * appendTrailingSlash("path/to/file") // "path/to/file/"
+ * appendTrailingSlash("path/to/file/") // "path/to/file/"
+ * appendTrailingSlash("") // ""
+ * ```
+ */
+export function appendTrailingSlash(str: string): string {
+  if (!str) return str;
+  return str.endsWith("/") ? str : `${str}/`;
+}
+
+/**
+ * Ensures a string starts with a leading slash
+ * @param {string} str - The string to prepend a leading slash to
+ * @returns {string} The string with a leading slash prepended if not already present
+ *
+ * @example
+ * ```ts
+ * import { prependLeadingSlash } from "@luxass/utils/string";
+ *
+ * prependLeadingSlash("path/to/file") // "/path/to/file"
+ * prependLeadingSlash("/path/to/file") // "/path/to/file"
+ * prependLeadingSlash("") // ""
+ * ```
+ */
+export function prependLeadingSlash(str: string): string {
+  if (!str) return str;
+  return str.startsWith("/") ? str : `/${str}`;
+}
