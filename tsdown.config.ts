@@ -15,7 +15,4 @@ export default defineConfig({
   exports: true,
   treeshake: true,
   publint: true,
-  noExternal: [
-    "p-retry",
-  ],
 });
