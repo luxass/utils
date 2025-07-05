@@ -21,15 +21,19 @@ export {
 } from "./object";
 
 export {
+  appendTrailingSlash,
   capitalize,
   dedent,
   dedentRaw,
   formatStr,
+  prependLeadingSlash,
   sanitizeIdentifier,
   toCamelCase,
   toKebabCase,
   toPascalCase,
   toSnakeCase,
+  trimLeadingSlash,
+  trimTrailingSlash,
 } from "./string";
 
 export type {
