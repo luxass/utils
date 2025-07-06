@@ -8,6 +8,7 @@ export default defineConfig({
     "./src/guards.ts",
     "./src/number.ts",
     "./src/object.ts",
+    "./src/path.ts",
   ],
   format: "esm",
   clean: true,

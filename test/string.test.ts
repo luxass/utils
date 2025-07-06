@@ -1,18 +1,14 @@
 import { describe, expect, it } from "vitest";
 import {
-  appendTrailingSlash,
   capitalize,
   dedent,
   dedentRaw,
   formatStr,
-  prependLeadingSlash,
   sanitizeIdentifier,
   toCamelCase,
   toKebabCase,
   toPascalCase,
   toSnakeCase,
-  trimLeadingSlash,
-  trimTrailingSlash,
 } from "../src/string";
 
 describe("capitalize", () => {
@@ -385,83 +381,5 @@ describe("formatStr", () => {
   it("should handle mixed placeholders", () => {
     expect(formatStr("Mixed %s, %d, %j", "string", 42, { key: "value" }))
       .toBe("Mixed string, 42, {\"key\":\"value\"}");
-  });
-});
-
-describe("trimTrailingSlash", () => {
-  it("should remove trailing slashes from strings", () => {
-    expect(trimTrailingSlash("path/to/file/")).toBe("path/to/file");
-    expect(trimTrailingSlash("path/to/file")).toBe("path/to/file");
-    expect(trimTrailingSlash("/path/to/file/")).toBe("/path/to/file");
-    expect(trimTrailingSlash("/path/to/file")).toBe("/path/to/file");
-  });
-
-  it("should handle strings with multiple trailing slashes", () => {
-    expect(trimTrailingSlash("path/to/file///")).toBe("path/to/file");
-    expect(trimTrailingSlash("/path/to/file///")).toBe("/path/to/file");
-  });
-
-  it("should not modify strings without trailing slashes", () => {
-    expect(trimTrailingSlash("path/to/file")).toBe("path/to/file");
-    expect(trimTrailingSlash("/path/to/file")).toBe("/path/to/file");
-  });
-
-  it("should handle empty strings", () => {
-    expect(trimTrailingSlash("")).toBe("");
-  });
-});
-
-describe("trimLeadingSlash", () => {
-  it("should remove leading slashes from strings", () => {
-    expect(trimLeadingSlash("/path/to/file")).toBe("path/to/file");
-    expect(trimLeadingSlash("path/to/file")).toBe("path/to/file");
-    expect(trimLeadingSlash("//path/to/file")).toBe("path/to/file");
-    expect(trimLeadingSlash("/path/to/file/")).toBe("path/to/file/");
-  });
-
-  it("should handle strings with multiple leading slashes", () => {
-    expect(trimLeadingSlash("//path/to/file")).toBe("path/to/file");
-    expect(trimLeadingSlash("///path/to/file")).toBe("path/to/file");
-  });
-
-  it("should not modify strings without leading slashes", () => {
-    expect(trimLeadingSlash("path/to/file")).toBe("path/to/file");
-    expect(trimLeadingSlash("/path/to/file/")).toBe("path/to/file/");
-  });
-
-  it("should handle empty strings", () => {
-    expect(trimLeadingSlash("")).toBe("");
-  });
-});
-
-describe("appendTrailingSlash", () => {
-  it("should append a trailing slash if not present", () => {
-    expect(appendTrailingSlash("path/to/file")).toBe("path/to/file/");
-    expect(appendTrailingSlash("/path/to/file")).toBe("/path/to/file/");
-  });
-
-  it("should not modify strings that already have a trailing slash", () => {
-    expect(appendTrailingSlash("path/to/file/")).toBe("path/to/file/");
-    expect(appendTrailingSlash("/path/to/file/")).toBe("/path/to/file/");
-  });
-
-  it("should not modify empty strings", () => {
-    expect(appendTrailingSlash("")).not.toBe("/");
-  });
-});
-
-describe("prependLeadingSlash", () => {
-  it("should prepend a leading slash if not present", () => {
-    expect(prependLeadingSlash("path/to/file")).toBe("/path/to/file");
-    expect(prependLeadingSlash("path/to/file/")).toBe("/path/to/file/");
-  });
-
-  it("should not modify strings that already have a leading slash", () => {
-    expect(prependLeadingSlash("/path/to/file")).toBe("/path/to/file");
-    expect(prependLeadingSlash("/path/to/file/")).toBe("/path/to/file/");
-  });
-
-  it("should not modify empty strings", () => {
-    expect(prependLeadingSlash("")).not.toBe("/");
   });
 });

@@ -27,6 +27,7 @@
     "./guards": "./dist/guards.js",
     "./number": "./dist/number.js",
     "./object": "./dist/object.js",
+    "./path": "./dist/path.js",
     "./string": "./dist/string.js",
     "./types": "./dist/types.js",
     "./package.json": "./package.json"
