@@ -98,34 +98,45 @@ export function prependLeadingSlash(path: string | undefined): string {
  * ```ts
  * import { joinURL } from "@luxass/utils/path";
  *
+ * // Basic path joining
  * joinURL("api", "users") // "api/users"
  * joinURL("api/", "users") // "api/users"
  * joinURL("api", "/users") // "api/users"
  * joinURL("api/", "/users") // "api/users"
+ *
+ * // URL joining with protocol
+ * joinURL("https://api.example.com", "v1/users") // "https://api.example.com/v1/users"
+ * joinURL("https://api.example.com/", "/v1/users") // "https://api.example.com/v1/users"
+ *
+ * // Multiple slash normalization (POSIX-like)
+ * joinURL("api//v1/", "//users///") // "api/v1/users/"
+ * joinURL("base///", "///path") // "base/path"
+ *
+ * // Empty and undefined handling
  * joinURL("", "users") // "users"
  * joinURL("api", "") // "api"
- * joinURL("/", "users") // "users"
- * joinURL("api", "/") // "api"
+ * joinURL(undefined, undefined) // "/"
  * ```
  */
-export function joinURL(
-  base: string | undefined,
-  path: string | undefined,
-): string {
-  if (!base || base === "/") {
-    return path || "/";
-  }
-  if (!path || path === "/") {
-    return base || "/";
-  }
+export function joinURL(base: string | undefined, path: string | undefined): string {
+  if (!base && !path) return "/";
+  if (!base || base === "/") return path || "/";
+  if (!path || path === "/") return base;
 
-  const baseHasTrailing = base[base.length - 1] === "/";
-  const pathHasLeading = path[0] === "/";
-  if (baseHasTrailing && pathHasLeading) {
-    return base + path.slice(1);
+  const normalize = (s: string): string => s.replace(/\/+/g, "/");
+  const joinPaths = (b: string, p: string): string => {
+    b = normalize(b);
+    p = normalize(p);
+    if (b.endsWith("/") && b !== "/") b = b.slice(0, -1);
+    if (p.startsWith("/")) p = p.slice(1);
+    return p ? `${b}/${p}` : b;
+  };
+
+  try {
+    const url = new URL(base);
+    url.pathname = joinPaths(url.pathname, path);
+    return url.toString();
+  } catch {
+    return joinPaths(base, path);
   }
-  if (!baseHasTrailing && !pathHasLeading) {
-    return `${base}/${path}`;
-  }
-  return base + path;
 }

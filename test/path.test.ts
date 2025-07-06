@@ -86,57 +86,122 @@ describe("prependLeadingSlash", () => {
 });
 
 describe("joinURL", () => {
-  it("should join two URL paths without slashes", () => {
-    expect(joinURL("api", "users")).toBe("api/users");
-    expect(joinURL("path", "to")).toBe("path/to");
+  describe("basic joining", () => {
+    it("should join two URL paths without slashes", () => {
+      expect(joinURL("api", "users")).toBe("api/users");
+      expect(joinURL("path", "to")).toBe("path/to");
+      expect(joinURL("v1", "endpoint")).toBe("v1/endpoint");
+    });
+
+    it("should join multiple segments properly", () => {
+      expect(joinURL("api/v1", "users")).toBe("api/v1/users");
+      expect(joinURL("base", "path/to/file")).toBe("base/path/to/file");
+    });
   });
 
-  it("should handle base path with trailing slash", () => {
-    expect(joinURL("api/", "users")).toBe("api/users");
-    expect(joinURL("path/", "to")).toBe("path/to");
+  describe("slash handling", () => {
+    it("should handle base path with trailing slash", () => {
+      expect(joinURL("api/", "users")).toBe("api/users");
+      expect(joinURL("path/", "to")).toBe("path/to");
+      expect(joinURL("base/", "endpoint")).toBe("base/endpoint");
+    });
+
+    it("should handle path with leading slash", () => {
+      expect(joinURL("api", "/users")).toBe("api/users");
+      expect(joinURL("path", "/to")).toBe("path/to");
+      expect(joinURL("base", "/endpoint")).toBe("base/endpoint");
+    });
+
+    it("should handle both base with trailing slash and path with leading slash", () => {
+      expect(joinURL("api/", "/users")).toBe("api/users");
+      expect(joinURL("path/", "/to")).toBe("path/to");
+      expect(joinURL("base/", "/endpoint")).toBe("base/endpoint");
+    });
+
+    it("should handle multiple trailing slashes in base", () => {
+      expect(joinURL("api//", "users")).toBe("api/users");
+      expect(joinURL("path///", "to")).toBe("path/to");
+    });
+
+    it("should handle multiple leading slashes in path", () => {
+      expect(joinURL("api", "//users")).toBe("api/users");
+      expect(joinURL("path", "///to")).toBe("path/to");
+    });
   });
 
-  it("should handle path with leading slash", () => {
-    expect(joinURL("api", "/users")).toBe("api/users");
-    expect(joinURL("path", "/to")).toBe("path/to");
+  describe("empty and undefined values", () => {
+    it("should handle empty strings", () => {
+      expect(joinURL("", "users")).toBe("users");
+      expect(joinURL("", "/users")).toBe("/users");
+      expect(joinURL("", "")).toBe("/");
+      expect(joinURL("api", "")).toBe("api");
+      expect(joinURL("api/", "")).toBe("api/");
+    });
+
+    it("should handle undefined values", () => {
+      expect(joinURL(undefined, undefined)).toBe("/");
+      expect(joinURL(undefined, "users")).toBe("users");
+      expect(joinURL(undefined, "/users")).toBe("/users");
+      expect(joinURL("api", undefined)).toBe("api");
+      expect(joinURL("api/", undefined)).toBe("api/");
+      expect(joinURL(undefined, "")).toBe("/");
+      expect(joinURL("", undefined)).toBe("/");
+    });
   });
 
-  it("should handle both base with trailing slash and path with leading slash", () => {
-    expect(joinURL("api/", "/users")).toBe("api/users");
-    expect(joinURL("path/", "/to")).toBe("path/to");
+  describe("root path handling", () => {
+    it("should handle root base path", () => {
+      expect(joinURL("/", "users")).toBe("users");
+      expect(joinURL("/", "/users")).toBe("/users");
+      expect(joinURL("/", "")).toBe("/");
+      expect(joinURL("/", undefined)).toBe("/");
+    });
+
+    it("should handle root path parameter", () => {
+      expect(joinURL("api", "/")).toBe("api");
+      expect(joinURL("api/", "/")).toBe("api/");
+      expect(joinURL("", "/")).toBe("/");
+      expect(joinURL(undefined, "/")).toBe("/");
+    });
   });
 
-  it("should handle empty base path", () => {
-    expect(joinURL("", "users")).toBe("users");
-    expect(joinURL("", "/users")).toBe("/users");
+  describe("special characters and encoding", () => {
+    it("should handle paths with special characters", () => {
+      expect(joinURL("api", "user%20name")).toBe("api/user%20name");
+      expect(joinURL("files", "document.pdf")).toBe("files/document.pdf");
+      expect(joinURL("search", "query?param=value")).toBe("search/query?param=value");
+    });
+
+    it("should handle paths with spaces", () => {
+      expect(joinURL("my folder", "my file")).toBe("my folder/my file");
+      expect(joinURL("path with spaces/", "/file with spaces")).toBe("path with spaces/file with spaces");
+    });
+
+    it("should handle paths with query parameters", () => {
+      expect(joinURL("api", "users?limit=10")).toBe("api/users?limit=10");
+      expect(joinURL("base/", "/search?q=test&sort=date")).toBe("base/search?q=test&sort=date");
+    });
+
+    it("should handle paths with fragments", () => {
+      expect(joinURL("docs", "page#section")).toBe("docs/page#section");
+      expect(joinURL("guide/", "/intro#getting-started")).toBe("guide/intro#getting-started");
+    });
   });
 
-  it("should handle empty path", () => {
-    expect(joinURL("api", "")).toBe("api");
-    expect(joinURL("api/", "")).toBe("api/");
-  });
+  describe("complex scenarios", () => {
+    it("should handle deeply nested paths", () => {
+      expect(joinURL("api/v1/users", "123/profile/settings")).toBe("api/v1/users/123/profile/settings");
+      expect(joinURL("/app/admin/", "/users/edit/form")).toBe("/app/admin/users/edit/form");
+    });
 
-  it("should handle root base path", () => {
-    expect(joinURL("/", "users")).toBe("users");
-    expect(joinURL("/", "/users")).toBe("/users");
-  });
+    it("should handle mixed slash patterns", () => {
+      expect(joinURL("api//v1/", "//users///")).toBe("api/v1/users/");
+      expect(joinURL("base///", "///path")).toBe("base/path");
+    });
 
-  it("should handle root path", () => {
-    expect(joinURL("api", "/")).toBe("api");
-    expect(joinURL("api/", "/")).toBe("api/");
-  });
-
-  it("should handle both undefined paths", () => {
-    expect(joinURL(undefined, undefined)).toBe("/");
-  });
-
-  it("should handle undefined base path", () => {
-    expect(joinURL(undefined, "users")).toBe("users");
-    expect(joinURL(undefined, "/users")).toBe("/users");
-  });
-
-  it("should handle undefined path", () => {
-    expect(joinURL("api", undefined)).toBe("api");
-    expect(joinURL("api/", undefined)).toBe("api/");
+    it("should maintain URL structure integrity", () => {
+      expect(joinURL("https://api.example.com", "v1/users")).toBe("https://api.example.com/v1/users");
+      expect(joinURL("https://api.example.com/", "/v1/users")).toBe("https://api.example.com/v1/users");
+    });
   });
 });
