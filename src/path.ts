@@ -134,7 +134,7 @@ export function joinURL(base: string | undefined, path: string | undefined): str
 
   try {
     const url = new URL(base);
-    url.pathname = joinPaths(url.pathname, path);
+    url.pathname = trimLeadingSlash(joinPaths(url.pathname, path));
     return url.toString();
   } catch {
     return joinPaths(base, path);

@@ -202,6 +202,8 @@ describe("joinURL", () => {
     it("should maintain URL structure integrity", () => {
       expect(joinURL("https://api.example.com", "v1/users")).toBe("https://api.example.com/v1/users");
       expect(joinURL("https://api.example.com/", "/v1/users")).toBe("https://api.example.com/v1/users");
+      expect(joinURL("https://api.example.com/v1", "users/123")).toBe("https://api.example.com/v1/users/123");
+      expect(joinURL("https://api.example.com/v1/", "/users/123")).toBe("https://api.example.com/v1/users/123");
     });
   });
 });
