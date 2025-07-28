@@ -48,6 +48,7 @@ export type {
   Nullish,
   Prettify,
   RemoveIndexSignature,
+  SafeOmit,
 } from "./types";
 
 export {

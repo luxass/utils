@@ -93,3 +93,31 @@ export type RemoveIndexSignature<T> = {
   // eslint-disable-next-line ts/no-empty-object-type
   [K in keyof T as {} extends Record<K, 1> ? never : K]: T[K]
 };
+
+/**
+ * A safer version of the built-in Omit utility type that ensures the keys
+ * being omitted actually exist on the source type
+ * @template T - The source object type
+ * @template K - The keys to omit (must be keys of T)
+ * @param {T} T - The source object type
+ * @param {K} K - The keys to omit (must be keys of T)
+ * @returns {Omit<T, K>} A new type with the specified keys omitted
+ *
+ * @example
+ * ```ts
+ * import { SafeOmit } from "@luxass/utils/types";
+ *
+ * interface User {
+ *   id: number;
+ *   name: string;
+ *   email: string;
+ * }
+ *
+ * type UserWithoutEmail = SafeOmit<User, 'email'>
+ * // { id: number; name: string }
+ *
+ * // TypeScript error - 'invalid' is not a key of User
+ * type Invalid = SafeOmit<User, 'invalid'>
+ * ```
+ */
+export type SafeOmit<T, K extends keyof T> = Omit<T, K>;
