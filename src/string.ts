@@ -136,19 +136,56 @@ export function toSnakeCase(str: string): string {
 }
 
 /**
- * Removes leading and trailing whitespace from each line of a string
- * @param {TemplateStringsArray | string} literals - The string to dedent
+ * @overload
+ * @param {string} literals - The string to dedent
  * @returns {string} The dedented string
+ *
  * @example ```ts
- * dedent`
- *   This is a test.
+ * import { dedent } from "@luxass/utils/string";
+ * const text = dedent(` *   This is a test.
  *   This is another line.
- * `
+ * `);
  * // "This is a test.\nThis is another line."
  * ```
  */
 export function dedent(literals: string): string;
+/**
+ * @overload
+ * @param {TemplateStringsArray} strings - The string to dedent
+ * @param {unknown[]} values - The values to insert into the string
+ * @returns {string} The dedented string
+ *
+ * @example
+ * ```ts
+ * import { dedent } from "@luxass/utils/string";
+ * const text = dedent`
+ *  This is a test.
+ *  This is another line.
+ * `;
+ * // "This is a test.\nThis is another line."
+ * ```
+ */
 export function dedent(strings: TemplateStringsArray, ...values: unknown[]): string;
+/**
+ * Removes leading and trailing whitespace from each line of a string
+ * @param {TemplateStringsArray | string} strings - The string to dedent
+ * @param {unknown[]} values - The values to insert into the string
+ * @returns {string} The dedented string
+ *
+ * @example
+ * ```ts
+ * import { dedent } from "@luxass/utils/string";
+ * const text = dedent` *    This is a test.
+ *    This is another line.
+ * `;
+ * // "This is a test.\nThis is another line."
+ *
+ * const text = dedent(` *    This is a test.
+ *    This is another line.
+ * `);
+ * // "This is a test.\nThis is another line."
+ * ```
+ */
 export function dedent(
   strings: TemplateStringsArray | string,
   ...values: unknown[]
@@ -159,19 +196,60 @@ export function dedent(
 dedent.raw = dedentRaw;
 
 /**
- * Removes leading and trailing whitespace from each line of a string
- * @param {TemplateStringsArray | string} literals - The string to dedent
+ * @overload
+ * @param {string} literals - The string to dedent
  * @returns {string} The dedented string
- * @example ```ts
- * dedent`
- *   This is a test.
- *   This is another line.
- * `
+ *
+ *  @example
+ * ```ts
+ * import { dedentRaw } from "@luxass/utils/string";
+ * const text = dedentRaw(`
+ *    This is a test.
+ *    This is another line.
+ * `);
  * // "This is a test.\nThis is another line."
  * ```
  */
 export function dedentRaw(literals: string): string;
+/**
+ * @overload
+ * @param {TemplateStringsArray} strings - The string to dedent
+ * @param {unknown[]} values - The values to insert into the string
+ * @return {string} The dedented string
+ *
+ *  @example
+ * ```ts
+ * import { dedentRaw } from "@luxass/utils/string";
+ * const text = dedentRaw`
+ *    This is a test.
+ *    This is another line.
+ * `
+ * // "This is a test.\nThis is another line."
+ * ```
+ */
 export function dedentRaw(strings: TemplateStringsArray, ...values: unknown[]): string;
+/**
+ * Removes leading and trailing whitespace from each line of a string
+ * @param {TemplateStringsArray | string} strings - The string to dedent
+ * @param {unknown[]} values - The values to insert into the string
+ * @returns {string} The dedented string
+ *
+ * @example
+ * ```ts
+ * import { dedentRaw } from "@luxass/utils/string";
+ * const text = dedentRaw(`
+ *    This is a test.
+ *    This is another line.
+ * `);
+ * // "This is a test.\nThis is another line."
+ *
+ * const text = dedentRaw`
+ *    This is a test.
+ *    This is another line.
+ * `
+ * // "This is a test.\nThis is another line."
+ * ```
+ */
 export function dedentRaw(
   strings: TemplateStringsArray | string,
   ...values: unknown[]
