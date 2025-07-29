@@ -89,7 +89,7 @@ export function prependLeadingSlash(path: string | undefined): string {
 }
 
 /**
- * Joins two URL paths together, handling trailing and leading slashes appropriately
+ * Joins URL paths together, handling trailing and leading slashes appropriately
  * @param {string} base - The base URL path
  * @param {...string} segments - Additional URL segments to join
  * @returns {string} The joined URL path
@@ -108,14 +108,18 @@ export function prependLeadingSlash(path: string | undefined): string {
  * joinURL("https://api.example.com", "v1/users") // "https://api.example.com/v1/users"
  * joinURL("https://api.example.com/", "/v1/users") // "https://api.example.com/v1/users"
  *
- * // Multiple slash normalization (POSIX-like)
+ * // Multiple slash normalization
  * joinURL("api//v1/", "//users///") // "api/v1/users/"
  * joinURL("base///", "///path") // "base/path"
+ *
+ * // Root path handling
+ * joinURL("/", "users") // "/users"
+ * joinURL("api", "/") // "api/"
  *
  * // Empty and undefined handling
  * joinURL("", "users") // "users"
  * joinURL("api", "") // "api"
- * joinURL(undefined, undefined) // "/"
+ * joinURL("", "") // "/"
  * ```
  */
 export function joinURL(base: string, ...segments: string[]): string {
