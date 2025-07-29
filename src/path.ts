@@ -133,9 +133,10 @@ export function joinURL(base: string, ...segments: string[]): string {
   let path = base;
 
   for (const seg of segments) {
-    if (!seg) {
+    if (!seg || seg === ".") {
       continue;
     }
+
     if (path.length > 0) {
       const pathTrailing = path[path.length - 1] === "/";
       const segLeading = seg[0] === "/";

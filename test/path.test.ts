@@ -99,6 +99,12 @@ describe("joinURL", () => {
     });
   });
 
+  it("should handle base path with dot segment", () => {
+    expect(joinURL("api", ".")).toBe("api");
+    expect(joinURL("path/to", ".")).toBe("path/to");
+    expect(joinURL("base/endpoint", ".")).toBe("base/endpoint");
+  });
+
   describe("slash handling", () => {
     it("should handle base path with trailing slash", () => {
       expect(joinURL("api/", "users")).toBe("api/users");
