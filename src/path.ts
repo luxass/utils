@@ -90,8 +90,8 @@ export function prependLeadingSlash(path: string | undefined): string {
 
 /**
  * Joins two URL paths together, handling trailing and leading slashes appropriately
- * @param {string | undefined} base - The base URL path
- * @param {string | undefined} path - The path to append to the base
+ * @param {string} base - The base URL path
+ * @param {...string} segments - Additional URL segments to join
  * @returns {string} The joined URL path
  *
  * @example
@@ -118,25 +118,33 @@ export function prependLeadingSlash(path: string | undefined): string {
  * joinURL(undefined, undefined) // "/"
  * ```
  */
-export function joinURL(base: string | undefined, path: string | undefined): string {
-  if (!base && !path) return "/";
-  if (!base || base === "/") return path || "/";
-  if (!path || path === "/") return base;
+export function joinURL(base: string, ...segments: string[]): string {
+  if (!base && !segments) return "/";
+  if (!segments || segments.length === 0) return base || "/";
 
-  const normalize = (s: string): string => s.replace(/\/+/g, "/");
-  const joinPaths = (b: string, p: string): string => {
-    b = normalize(b);
-    p = normalize(p);
-    if (b.endsWith("/") && b !== "/") b = b.slice(0, -1);
-    if (p.startsWith("/")) p = p.slice(1);
-    return p ? `${b}/${p}` : b;
+  const normalize = (s: string): string => {
+    // preserve protocol separators like ://
+    return s.replace(/([^:])\/+/g, "$1/").replace(/^\/+/, "/");
   };
+  let path = base;
 
-  try {
-    const url = new URL(base);
-    url.pathname = trimLeadingSlash(joinPaths(url.pathname, path));
-    return url.toString();
-  } catch {
-    return joinPaths(base, path);
+  for (const seg of segments) {
+    if (!seg) {
+      continue;
+    }
+    if (path.length > 0) {
+      const pathTrailing = path[path.length - 1] === "/";
+      const segLeading = seg[0] === "/";
+      const both = pathTrailing && segLeading;
+      if (both) {
+        path += seg.slice(1);
+      } else {
+        path += pathTrailing || segLeading ? seg : `/${seg}`;
+      }
+    } else {
+      path += seg;
+    }
   }
+
+  return normalize(path) || "/";
 }

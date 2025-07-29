@@ -137,31 +137,19 @@ describe("joinURL", () => {
       expect(joinURL("api", "")).toBe("api");
       expect(joinURL("api/", "")).toBe("api/");
     });
-
-    it("should handle undefined values", () => {
-      expect(joinURL(undefined, undefined)).toBe("/");
-      expect(joinURL(undefined, "users")).toBe("users");
-      expect(joinURL(undefined, "/users")).toBe("/users");
-      expect(joinURL("api", undefined)).toBe("api");
-      expect(joinURL("api/", undefined)).toBe("api/");
-      expect(joinURL(undefined, "")).toBe("/");
-      expect(joinURL("", undefined)).toBe("/");
-    });
   });
 
   describe("root path handling", () => {
     it("should handle root base path", () => {
-      expect(joinURL("/", "users")).toBe("users");
+      expect(joinURL("/", "users")).toBe("/users");
       expect(joinURL("/", "/users")).toBe("/users");
       expect(joinURL("/", "")).toBe("/");
-      expect(joinURL("/", undefined)).toBe("/");
     });
 
-    it("should handle root path parameter", () => {
-      expect(joinURL("api", "/")).toBe("api");
+    it("should handle root path parameter by appending trailing slash", () => {
+      expect(joinURL("api", "/")).toBe("api/");
       expect(joinURL("api/", "/")).toBe("api/");
       expect(joinURL("", "/")).toBe("/");
-      expect(joinURL(undefined, "/")).toBe("/");
     });
   });
 
