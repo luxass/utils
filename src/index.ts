@@ -42,13 +42,8 @@ export {
 export type {
   ElementOf,
   InferArguments,
-  MaybeArray,
-  MaybePromise,
-  Nullable,
-  Nullish,
   Prettify,
   RemoveIndexSignature,
-  SafeOmit,
 } from "./types";
 
 export {
