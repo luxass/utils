@@ -8,7 +8,7 @@
     "email": "lucasnrgaard@gmail.com",
     "url": "https://luxass.dev"
   },
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.16.0",
   "license": "MIT",
   "homepage": "https://github.com/luxass/utils",
   "repository": {
@@ -50,17 +50,17 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "p-retry": "^6.2.1"
+    "p-retry": "^7.0.0"
   },
   "devDependencies": {
-    "@luxass/eslint-config": "^5.1.1",
-    "@types/node": "^22.15.2",
+    "@luxass/eslint-config": "^5.3.1",
+    "@types/node": "^22.18.3",
     "@vitest/coverage-v8": "3.2.4",
-    "eslint": "^9.32.0",
+    "eslint": "^9.35.0",
     "eslint-plugin-format": "^1.0.1",
     "publint": "^0.3.12",
-    "tsdown": "^0.13.0",
-    "typescript": "^5.8.3",
+    "tsdown": "^0.15.1",
+    "typescript": "^5.9.2",
     "vitest": "^3.2.4",
     "vitest-package-exports": "^0.1.1"
   }
