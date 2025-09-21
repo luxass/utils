@@ -61,7 +61,7 @@
     "publint": "^0.3.12",
     "tsdown": "^0.15.1",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.4",
+    "vitest": "3.2.4",
     "vitest-package-exports": "^0.1.1"
   }
 }
