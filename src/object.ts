@@ -41,7 +41,7 @@ export function hasOwnProperty(obj: object, key: string): boolean {
  */
 export function getOwnProperty<K extends string, V>(
   obj: Partial<Record<K, V>>,
-  key: K
+  key: K,
 ): V | undefined;
 export function getOwnProperty<O extends object>(obj: O, key: string): O[keyof O] | undefined;
 export function getOwnProperty(obj: object, key: string): unknown;
