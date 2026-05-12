@@ -48,7 +48,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "p-retry": "7.1.1"
+    "p-retry": "8.0.0"
   },
   "devDependencies": {
     "@luxass/eslint-config": "7.0.0",
