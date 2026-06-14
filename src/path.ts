@@ -122,14 +122,15 @@ export function prependLeadingSlash(path: string | undefined): string {
  * joinURL("", "") // "/"
  * ```
  */
+function normalizeURLPath(path: string): string {
+  // preserve protocol separators like ://
+  return path.replace(/([^:])\/+/g, "$1/").replace(/^\/+/, "/");
+}
+
 export function joinURL(base: string, ...segments: string[]): string {
   if (!base && !segments) return "/";
   if (!segments || segments.length === 0) return base || "/";
 
-  const normalize = (s: string): string => {
-    // preserve protocol separators like ://
-    return s.replace(/([^:])\/+/g, "$1/").replace(/^\/+/, "/");
-  };
   let path = base;
 
   for (const seg of segments) {
@@ -151,5 +152,5 @@ export function joinURL(base: string, ...segments: string[]): string {
     }
   }
 
-  return normalize(path) || "/";
+  return normalizeURLPath(path) || "/";
 }

@@ -19,7 +19,7 @@ describe("capitalize", () => {
     ["123", "123"],
     ["中国", "中国"],
     ["āÁĂÀ", "Āáăà"],
-    ["\a", "A"],
+    ["a", "A"],
     ["", ""],
     ["already Capitalized", "Already capitalized"],
     ["multiple   spaces", "Multiple   spaces"],

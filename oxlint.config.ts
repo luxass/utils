@@ -1,6 +1,7 @@
 import { defineConfig } from "oxlint";
 
 export default defineConfig({
+  ignorePatterns: ["test/__snapshots__/**/*"],
   options: {
     typeAware: true,
     typeCheck: true,

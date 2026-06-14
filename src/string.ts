@@ -260,11 +260,11 @@ function internal_dedent(
   values: unknown[],
   raw: boolean = false,
 ): string {
-  const _raw = typeof strings === "string" ? [strings] : raw ? strings.raw : strings;
+  const rawStrings = typeof strings === "string" ? [strings] : raw ? strings.raw : strings;
   let result = "";
 
-  for (let i = 0; i < _raw.length; i++) {
-    const next = _raw[i];
+  for (let i = 0; i < rawStrings.length; i++) {
+    const next = rawStrings[i];
     result += next;
 
     if (i < values.length) {
@@ -345,6 +345,8 @@ function serializePositional(positional: unknown, flag: Flag): any {
 
     return json;
   }
+
+  return positional;
 }
 
 /**
