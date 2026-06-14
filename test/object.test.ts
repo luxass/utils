@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { getChangedKeys, getOwnProperty, hasOwnProperty, omit } from "../src/object";
 
 describe("hasOwnProperty", () => {

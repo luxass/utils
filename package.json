@@ -2,26 +2,29 @@
   "name": "@luxass/utils",
   "version": "2.7.3",
   "description": "A collection of utilities for JavaScript/TypeScript",
-  "type": "module",
+  "keywords": [
+    "utils"
+  ],
+  "homepage": "https://github.com/luxass/utils",
+  "bugs": {
+    "url": "https://github.com/luxass/utils/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Lucas Nørgård",
     "email": "lucasnrgaard@gmail.com",
     "url": "https://luxass.dev"
   },
-  "packageManager": "pnpm@11.5.2",
-  "license": "MIT",
-  "homepage": "https://github.com/luxass/utils",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luxass/utils.git"
   },
-  "bugs": {
-    "url": "https://github.com/luxass/utils/issues"
-  },
-  "keywords": [
-    "utils"
+  "files": [
+    "dist"
   ],
+  "type": "module",
   "sideEffects": false,
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": "./dist/index.mjs",
     "./guards": "./dist/guards.mjs",
@@ -31,13 +34,6 @@
     "./string": "./dist/string.mjs",
     "./types": "./dist/types.mjs",
     "./package.json": "./package.json"
-  },
-  "types": "./dist/index.d.mts",
-  "files": [
-    "dist"
-  ],
-  "engines": {
-    "node": ">=24"
   },
   "scripts": {
     "build": "tsdown",
@@ -62,5 +58,9 @@
     "tsdown": "catalog:dev",
     "typescript": "catalog:dev",
     "vitest": "catalog:dev"
-  }
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@11.5.2"
 }

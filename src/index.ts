@@ -1,24 +1,9 @@
-export {
-  invariant,
-  InvariantError,
-} from "./common";
-export {
-  isNotNull,
-  isNotNullish,
-  isNotUndefined,
-  isTruthy,
-} from "./guards";
+export { invariant, InvariantError } from "./common";
+export { isNotNull, isNotNullish, isNotUndefined, isTruthy } from "./guards";
 
-export {
-  clamp,
-} from "./number";
+export { clamp } from "./number";
 
-export {
-  getChangedKeys,
-  getOwnProperty,
-  hasOwnProperty,
-  omit,
-} from "./object";
+export { getChangedKeys, getOwnProperty, hasOwnProperty, omit } from "./object";
 
 export {
   appendTrailingSlash,
@@ -39,13 +24,6 @@ export {
   toSnakeCase,
 } from "./string";
 
-export type {
-  ElementOf,
-  InferArguments,
-  Prettify,
-  RemoveIndexSignature,
-} from "./types";
+export type { ElementOf, InferArguments, Prettify, RemoveIndexSignature } from "./types";
 
-export {
-  promiseRetry,
-} from "./vendor";
+export { promiseRetry } from "./vendor";
