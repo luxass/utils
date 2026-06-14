@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { invariant, InvariantError } from "../src/common";
 
 describe("invariantError", () => {
@@ -27,13 +28,13 @@ describe("invariantError", () => {
     it("should format message with %j specifier", () => {
       const error = new InvariantError("Data: %j", { name: "test" });
 
-      expect(error.message).toBe("Data: {\"name\":\"test\"}");
+      expect(error.message).toBe('Data: {"name":"test"}');
     });
 
     it("should format message with %o specifier", () => {
       const error = new InvariantError("Object: %o", { id: 1 });
 
-      expect(error.message).toBe("Object: {\"id\":1}");
+      expect(error.message).toBe('Object: {"id":1}');
     });
 
     it("should handle escaped %% specifier", () => {
@@ -49,9 +50,12 @@ describe("invariantError", () => {
     });
 
     it("should handle multiple specifiers", () => {
-      const error = new InvariantError("User %s (ID: %d) has %j permissions", "john", 123, ["read", "write"]);
+      const error = new InvariantError("User %s (ID: %d) has %j permissions", "john", 123, [
+        "read",
+        "write",
+      ]);
 
-      expect(error.message).toBe("User john (ID: 123) has [\"read\",\"write\"] permissions");
+      expect(error.message).toBe('User john (ID: 123) has ["read","write"] permissions');
     });
 
     it("should handle missing arguments gracefully", () => {
@@ -145,7 +149,7 @@ describe("invariant", () => {
     it("should throw with correctly formatted error message using %j", () => {
       expect(() => {
         invariant(false, "Invalid config: %j", { timeout: -1 });
-      }).toThrow("Invalid config: {\"timeout\":-1}");
+      }).toThrow('Invalid config: {"timeout":-1}');
     });
   });
 
@@ -198,8 +202,14 @@ describe("invariant", () => {
       const permissions = ["read", "write"];
 
       expect(() => {
-        invariant(false, "User %o has permissions %j (count: %d)", user, permissions, permissions.length);
-      }).toThrow("User {\"name\":\"John\",\"id\":123} has permissions [\"read\",\"write\"] (count: 2)");
+        invariant(
+          false,
+          "User %o has permissions %j (count: %d)",
+          user,
+          permissions,
+          permissions.length,
+        );
+      }).toThrow('User {"name":"John","id":123} has permissions ["read","write"] (count: 2)');
     });
 
     it("should handle escaped percent signs", () => {

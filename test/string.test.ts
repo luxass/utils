@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import {
   capitalize,
   dedent,
@@ -18,7 +19,7 @@ describe("capitalize", () => {
     ["123", "123"],
     ["中国", "中国"],
     ["āÁĂÀ", "Āáăà"],
-    ["\a", "A"],
+    ["a", "A"],
     ["", ""],
     ["already Capitalized", "Already capitalized"],
     ["multiple   spaces", "Multiple   spaces"],
@@ -202,7 +203,7 @@ describe("dedentEscape", () => {
       const str = "hello";
       console.log(str);
     `;
-    const expected = "const str = \"hello\";\nconsole.log(str);";
+    const expected = 'const str = "hello";\nconsole.log(str);';
     expect(dedentRaw(input)).toEqual(expected);
   });
 
@@ -212,7 +213,7 @@ describe("dedentEscape", () => {
       const greeting = "hello ${name}";
       console.log(greeting);
     `;
-    const expected = "const greeting = \"hello world\";\nconsole.log(greeting);";
+    const expected = 'const greeting = "hello world";\nconsole.log(greeting);';
     expect(input).toEqual(expected);
   });
 
@@ -221,7 +222,7 @@ describe("dedentEscape", () => {
       const regex = /\d+/;
       const str = "hello\nworld";
     `;
-    const expected = "const regex = /\\d+/;\nconst str = \"hello\\nworld\";";
+    const expected = 'const regex = /\\d+/;\nconst str = "hello\\nworld";';
     expect(dedentRaw(input)).toEqual(expected);
   });
 
@@ -301,11 +302,7 @@ describe("sanitizeIdentifier", () => {
   });
 
   describe("should make invalid identifiers valid JavaScript identifiers", () => {
-    it.each([
-      "123test",
-      "456var",
-      "789const",
-    ])("sanitizeIdentifier(%s) = %s", (input) => {
+    it.each(["123test", "456var", "789const"])("sanitizeIdentifier(%s) = %s", (input) => {
       const sanitized = sanitizeIdentifier(input);
       // Test if the sanitized identifier is a valid JavaScript identifier
       expect(/^[A-Z_$][\w$]*$/i.test(sanitized)).toBe(true);
@@ -313,12 +310,7 @@ describe("sanitizeIdentifier", () => {
   });
 
   describe("should not modify already valid identifiers", () => {
-    it.each([
-      "test",
-      "_test",
-      "$test",
-      "Test",
-    ])("sanitizeIdentifier(%s) = %s", (input) => {
+    it.each(["test", "_test", "$test", "Test"])("sanitizeIdentifier(%s) = %s", (input) => {
       expect(sanitizeIdentifier(input)).toEqual(input);
     });
   });
@@ -339,18 +331,18 @@ describe("formatStr", () => {
   });
 
   it("should handle JSON placeholders (%j)", () => {
-    expect(formatStr("Data: %j", { name: "test" })).toBe("Data: {\"name\":\"test\"}");
+    expect(formatStr("Data: %j", { name: "test" })).toBe('Data: {"name":"test"}');
     expect(formatStr("Array: %j", [1, 2, 3])).toBe("Array: [1,2,3]");
-    expect(formatStr("JSON: %j", { nested: { value: true } }))
-      .toBe("JSON: {\"nested\":{\"value\":true}}");
+    expect(formatStr("JSON: %j", { nested: { value: true } })).toBe(
+      'JSON: {"nested":{"value":true}}',
+    );
   });
 
   it("should handle object placeholders (%o)", () => {
-    expect(formatStr("Object: %o", { id: 1 })).toBe("Object: {\"id\":1}");
+    expect(formatStr("Object: %o", { id: 1 })).toBe('Object: {"id":1}');
     expect(formatStr("String with %o", "test")).toBe("String with test");
 
-    expect(formatStr("Object with string: %o", {}))
-      .toBe("Object with string: [object Object]");
+    expect(formatStr("Object with string: %o", {})).toBe("Object with string: [object Object]");
   });
 
   it("should handle escaped percent signs", () => {
@@ -360,8 +352,9 @@ describe("formatStr", () => {
 
   it("should handle extra positional arguments", () => {
     expect(formatStr("Extra args", 1, 2)).toBe("Extra args 1 2");
-    expect(formatStr("One arg: %s", "first", "second", "third"))
-      .toBe("One arg: first second third");
+    expect(formatStr("One arg: %s", "first", "second", "third")).toBe(
+      "One arg: first second third",
+    );
     expect(formatStr("No placeholders", "a", "b", "c")).toBe("No placeholders a b c");
   });
 
@@ -379,7 +372,8 @@ describe("formatStr", () => {
   });
 
   it("should handle mixed placeholders", () => {
-    expect(formatStr("Mixed %s, %d, %j", "string", 42, { key: "value" }))
-      .toBe("Mixed string, 42, {\"key\":\"value\"}");
+    expect(formatStr("Mixed %s, %d, %j", "string", 42, { key: "value" })).toBe(
+      'Mixed string, 42, {"key":"value"}',
+    );
   });
 });

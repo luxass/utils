@@ -71,7 +71,8 @@ export function toCamelCase(str: string): string {
 export function toKebabCase(str: string): string {
   if (!str) return "";
 
-  return str.trim()
+  return str
+    .trim()
     .replace(/_/g, "-")
     .replace(/\s+/g, " ")
     .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
@@ -97,7 +98,8 @@ export function toKebabCase(str: string): string {
 export function toPascalCase(str: string): string {
   if (!str) return "";
 
-  return str.trim()
+  return str
+    .trim()
     .replace(/[_-]+/g, " ")
     .replace(/\s+/g, " ")
     .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
@@ -125,7 +127,8 @@ export function toPascalCase(str: string): string {
 export function toSnakeCase(str: string): string {
   if (!str) return "";
 
-  return str.trim()
+  return str
+    .trim()
     .replace(/-/g, "_")
     .replace(/\s+/g, " ")
     .replace(/([A-Z]+)([A-Z][a-z])/g, "$1_$2")
@@ -186,10 +189,7 @@ export function dedent(strings: TemplateStringsArray, ...values: unknown[]): str
  * // "This is a test.\nThis is another line."
  * ```
  */
-export function dedent(
-  strings: TemplateStringsArray | string,
-  ...values: unknown[]
-): string {
+export function dedent(strings: TemplateStringsArray | string, ...values: unknown[]): string {
   return internal_dedent(strings, values, false);
 }
 
@@ -250,10 +250,7 @@ export function dedentRaw(strings: TemplateStringsArray, ...values: unknown[]): 
  * // "This is a test.\nThis is another line."
  * ```
  */
-export function dedentRaw(
-  strings: TemplateStringsArray | string,
-  ...values: unknown[]
-): string {
+export function dedentRaw(strings: TemplateStringsArray | string, ...values: unknown[]): string {
   return internal_dedent(strings, values, true);
 }
 
@@ -263,11 +260,11 @@ function internal_dedent(
   values: unknown[],
   raw: boolean = false,
 ): string {
-  const _raw = typeof strings === "string" ? [strings] : raw ? strings.raw : strings;
+  const rawStrings = typeof strings === "string" ? [strings] : raw ? strings.raw : strings;
   let result = "";
 
-  for (let i = 0; i < _raw.length; i++) {
-    const next = _raw[i];
+  for (let i = 0; i < rawStrings.length; i++) {
+    const next = rawStrings[i];
     result += next;
 
     if (i < values.length) {
@@ -277,14 +274,13 @@ function internal_dedent(
 
   const lines = result.split("\n");
   const whitespaceLines = lines.map((line) => FULL_WHITESPACE_RE.test(line));
-  const commonIndent = lines
-    .reduce((min, line, idx) => {
-      if (whitespaceLines[idx]) {
-        return min;
-      }
-      const indent = line.match(/^\s*/)?.[0].length;
-      return indent === undefined ? min : Math.min(min, indent);
-    }, Number.POSITIVE_INFINITY);
+  const commonIndent = lines.reduce((min, line, idx) => {
+    if (whitespaceLines[idx]) {
+      return min;
+    }
+    const indent = line.match(/^\s*/)?.[0].length;
+    return indent === undefined ? min : Math.min(min, indent);
+  }, Number.POSITIVE_INFINITY);
 
   const firstNonWhitespaceLine = whitespaceLines.findIndex((isWhitespace) => !isWhitespace);
   const lastNonWhitespaceLine = whitespaceLines.lastIndexOf(false);
@@ -349,6 +345,8 @@ function serializePositional(positional: unknown, flag: Flag): any {
 
     return json;
   }
+
+  return positional;
 }
 
 /**
@@ -373,20 +371,17 @@ export function formatStr(message: string, ...positionals: unknown[]): string {
   }
 
   let positionalIndex = 0;
-  let formattedMessage = message.replace(
-    POSITION_REGEX,
-    (match, isEscaped, _, flag) => {
-      const positional = positionals[positionalIndex];
-      const value = serializePositional(positional, flag);
+  let formattedMessage = message.replace(POSITION_REGEX, (match, isEscaped, _, flag) => {
+    const positional = positionals[positionalIndex];
+    const value = serializePositional(positional, flag);
 
-      if (!isEscaped) {
-        positionalIndex++;
-        return value;
-      }
+    if (!isEscaped) {
+      positionalIndex++;
+      return value;
+    }
 
-      return match;
-    },
-  );
+    return match;
+  });
 
   // append unresolved positionals to string as-is.
   if (positionalIndex < positionals.length) {

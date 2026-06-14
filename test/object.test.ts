@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { getChangedKeys, getOwnProperty, hasOwnProperty, omit } from "../src/object";
 
 describe("hasOwnProperty", () => {
@@ -94,8 +95,8 @@ describe("getChangedKeys", () => {
   });
 
   it("should handle special values with Object.is comparison", () => {
-    const obj1 = { nan: Number.NaN, negZero: -0, posZero: +0 };
-    const obj2 = { nan: Number.NaN, negZero: +0, posZero: -0 };
+    const obj1 = { nan: Number.NaN, negZero: -0, posZero: 0 };
+    const obj2 = { nan: Number.NaN, negZero: 0, posZero: -0 };
     expect(getChangedKeys(obj1, obj2)).toEqual(["negZero", "posZero"]);
   });
 

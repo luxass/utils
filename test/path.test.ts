@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import {
   appendTrailingSlash,
   joinURL,
@@ -168,7 +169,9 @@ describe("joinURL", () => {
 
     it("should handle paths with spaces", () => {
       expect(joinURL("my folder", "my file")).toBe("my folder/my file");
-      expect(joinURL("path with spaces/", "/file with spaces")).toBe("path with spaces/file with spaces");
+      expect(joinURL("path with spaces/", "/file with spaces")).toBe(
+        "path with spaces/file with spaces",
+      );
     });
 
     it("should handle paths with query parameters", () => {
@@ -184,7 +187,9 @@ describe("joinURL", () => {
 
   describe("complex scenarios", () => {
     it("should handle deeply nested paths", () => {
-      expect(joinURL("api/v1/users", "123/profile/settings")).toBe("api/v1/users/123/profile/settings");
+      expect(joinURL("api/v1/users", "123/profile/settings")).toBe(
+        "api/v1/users/123/profile/settings",
+      );
       expect(joinURL("/app/admin/", "/users/edit/form")).toBe("/app/admin/users/edit/form");
     });
 
@@ -194,10 +199,18 @@ describe("joinURL", () => {
     });
 
     it("should maintain URL structure integrity", () => {
-      expect(joinURL("https://api.example.com", "v1/users")).toBe("https://api.example.com/v1/users");
-      expect(joinURL("https://api.example.com/", "/v1/users")).toBe("https://api.example.com/v1/users");
-      expect(joinURL("https://api.example.com/v1", "users/123")).toBe("https://api.example.com/v1/users/123");
-      expect(joinURL("https://api.example.com/v1/", "/users/123")).toBe("https://api.example.com/v1/users/123");
+      expect(joinURL("https://api.example.com", "v1/users")).toBe(
+        "https://api.example.com/v1/users",
+      );
+      expect(joinURL("https://api.example.com/", "/v1/users")).toBe(
+        "https://api.example.com/v1/users",
+      );
+      expect(joinURL("https://api.example.com/v1", "users/123")).toBe(
+        "https://api.example.com/v1/users/123",
+      );
+      expect(joinURL("https://api.example.com/v1/", "/users/123")).toBe(
+        "https://api.example.com/v1/users/123",
+      );
     });
   });
 });

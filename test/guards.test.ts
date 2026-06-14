@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+
 import { isNotNull, isNotNullish, isNotUndefined, isTruthy } from "../src/guards";
 
 it("should filter out null and undefined values", () => {

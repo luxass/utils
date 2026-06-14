@@ -2,26 +2,29 @@
   "name": "@luxass/utils",
   "version": "2.7.3",
   "description": "A collection of utilities for JavaScript/TypeScript",
-  "type": "module",
+  "keywords": [
+    "utils"
+  ],
+  "homepage": "https://github.com/luxass/utils",
+  "bugs": {
+    "url": "https://github.com/luxass/utils/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Lucas Nørgård",
     "email": "lucasnrgaard@gmail.com",
     "url": "https://luxass.dev"
   },
-  "packageManager": "pnpm@10.28.2",
-  "license": "MIT",
-  "homepage": "https://github.com/luxass/utils",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luxass/utils.git"
   },
-  "bugs": {
-    "url": "https://github.com/luxass/utils/issues"
-  },
-  "keywords": [
-    "utils"
+  "files": [
+    "dist"
   ],
+  "type": "module",
   "sideEffects": false,
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": "./dist/index.mjs",
     "./guards": "./dist/guards.mjs",
@@ -32,34 +35,33 @@
     "./types": "./dist/types.mjs",
     "./package.json": "./package.json"
   },
-  "types": "./dist/index.d.mts",
-  "files": [
-    "dist"
-  ],
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
     "test": "vitest --run",
     "test:watch": "vitest",
-    "lint": "eslint .",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "p-retry": "7.1.1"
+    "p-retry": "catalog:prod"
   },
   "devDependencies": {
-    "@luxass/eslint-config": "7.0.0",
-    "@types/node": "22.18.3",
-    "@vitest/coverage-v8": "4.0.18",
-    "eslint": "9.39.2",
-    "eslint-plugin-format": "1.3.1",
-    "publint": "0.3.17",
-    "tsdown": "0.20.2",
-    "typescript": "5.9.3",
-    "vitest": "4.0.18",
-    "vitest-package-exports": "1.2.0"
-  }
+    "@types/node": "catalog:dev",
+    "oxfmt": "catalog:dev",
+    "oxlint": "catalog:dev",
+    "oxlint-tsgolint": "catalog:dev",
+    "publint": "catalog:dev",
+    "tsdown": "catalog:dev",
+    "tsnapi": "catalog:dev",
+    "typescript": "catalog:dev",
+    "vitest": "catalog:dev"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@11.5.2"
 }

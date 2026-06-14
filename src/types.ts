@@ -26,7 +26,7 @@ export type ElementOf<T> = T extends (infer E)[] ? E : never;
  * // [string, number]
  * ```
  */
-export type InferArguments<T> = T extends ((...args: infer A) => any) ? A : never;
+export type InferArguments<T> = T extends (...args: infer A) => any ? A : never;
 
 /**
  * Makes complex nested types more readable in editor tooltips by flattening
@@ -63,5 +63,5 @@ export type Prettify<T> = {
  */
 export type RemoveIndexSignature<T> = {
   // eslint-disable-next-line ts/no-empty-object-type
-  [K in keyof T as {} extends Record<K, 1> ? never : K]: T[K]
+  [K in keyof T as {} extends Record<K, 1> ? never : K]: T[K];
 };
