@@ -1,9 +1,10 @@
-import { fileURLToPath } from 'node:url'
-import { snapshotApiPerEntry } from 'tsnapi/vitest'
-import { describe } from 'vitest'
+import { fileURLToPath } from "node:url";
 
-const dir = fileURLToPath(new URL('../', import.meta.url))
+import { snapshotApiPerEntry } from "tsnapi/vitest";
+import { describe } from "vitest";
 
-describe('@luxass/utils api', async () => {
-  snapshotApiPerEntry(dir)
-})
+const dir = fileURLToPath(new URL("../", import.meta.url));
+
+describe("@luxass/utils api", async () => {
+  snapshotApiPerEntry(dir);
+});

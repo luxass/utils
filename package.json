@@ -56,9 +56,9 @@
     "oxlint-tsgolint": "catalog:dev",
     "publint": "catalog:dev",
     "tsdown": "catalog:dev",
+    "tsnapi": "catalog:dev",
     "typescript": "catalog:dev",
-    "vitest": "catalog:dev",
-    "tsnapi": "catalog:dev"
+    "vitest": "catalog:dev"
   },
   "engines": {
     "node": ">=24"

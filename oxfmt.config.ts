@@ -1,6 +1,7 @@
 import { defineConfig } from "oxfmt";
 
 export default defineConfig({
+  ignorePatterns: ["test/__snapshots__/**/*"],
   singleQuote: false,
   semi: true,
   sortPackageJson: true,
