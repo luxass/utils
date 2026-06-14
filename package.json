@@ -57,7 +57,8 @@
     "publint": "catalog:dev",
     "tsdown": "catalog:dev",
     "typescript": "catalog:dev",
-    "vitest": "catalog:dev"
+    "vitest": "catalog:dev",
+    "tsnapi": "catalog:dev"
   },
   "engines": {
     "node": ">=24"

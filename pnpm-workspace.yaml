@@ -16,6 +16,7 @@ catalogs:
     typescript: 6.0.3
     vitest: 4.1.8
     vitest-testdirs: 4.4.3
+    tsnapi: 0.3.3
 
   prod:
     p-retry: 8.0.0
