@@ -9,7 +9,7 @@ catalogs:
   dev:
     "@types/node": 25.9.2
     oxfmt: 0.54.0
-    oxlint: 1.69.0
+    oxlint: 1.71.0
     oxlint-tsgolint: 0.23.0
     publint: 0.3.21
     tsdown: 0.22.2
