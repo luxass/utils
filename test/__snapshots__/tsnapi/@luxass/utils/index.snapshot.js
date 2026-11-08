@@ -9,31 +9,31 @@ export class InvariantError extends Error {
 // #endregion
 
 // #region Functions
+export function appendTrailingSlash(_) {}
+export function capitalize(_) {}
+export function clamp(_, _, _) {}
+export function dedent(_, ..._) {}
+export function dedentRaw(_, ..._) {}
+export function formatStr(_, ..._) {}
+export function getChangedKeys(_, _) {}
+export function getOwnProperty(_, _) {}
+export function hasOwnProperty(_, _) {}
 export function invariant(_, _, ..._) {}
+export function isNotNull(_) {}
+export function isNotNullish(_) {}
+export function isNotUndefined(_) {}
+export function isTruthy(_) {}
+export function omit(_, _) {}
+export function prependLeadingSlash(_) {}
+export function sanitizeIdentifier(_) {}
+export function toCamelCase(_) {}
+export function toKebabCase(_) {}
+export function toPascalCase(_) {}
+export function toSnakeCase(_) {}
+export function trimLeadingSlash(_) {}
+export function trimTrailingSlash(_) {}
 // #endregion
 
 // #region Other
-export { appendTrailingSlash }
-export { capitalize }
-export { clamp }
-export { dedent }
-export { dedentRaw }
-export { formatStr }
-export { getChangedKeys }
-export { getOwnProperty }
-export { hasOwnProperty }
-export { isNotNull }
-export { isNotNullish }
-export { isNotUndefined }
-export { isTruthy }
-export { omit }
-export { prependLeadingSlash }
 export { promiseRetry }
-export { sanitizeIdentifier }
-export { toCamelCase }
-export { toKebabCase }
-export { toPascalCase }
-export { toSnakeCase }
-export { trimLeadingSlash }
-export { trimTrailingSlash }
 // #endregion
