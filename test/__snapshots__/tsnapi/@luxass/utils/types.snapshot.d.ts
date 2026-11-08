@@ -4,6 +4,6 @@
 // #region Types
 export type ElementOf<T> = T extends (infer E)[] ? E : never;
 export type InferArguments<T> = T extends ((...args: infer A) => any) ? A : never;
-export type Prettify<T> = { [K in keyof T]: T[K] } & {};
-export type RemoveIndexSignature<T> = { [K in keyof T as {} extends Record<K, 1> ? never : K]: T[K] };
+export type Prettify<T> = { [K in keyof T]: T[K]; } & {};
+export type RemoveIndexSignature<T> = { [K in keyof T as {} extends Record<K, 1> ? never : K]: T[K]; };
 // #endregion

@@ -28,7 +28,7 @@ export { isNotUndefined }
 export { isTruthy }
 export { omit }
 export { prependLeadingSlash }
-export { pRetry as promiseRetry }
+export { promiseRetry }
 export { sanitizeIdentifier }
 export { toCamelCase }
 export { toKebabCase }

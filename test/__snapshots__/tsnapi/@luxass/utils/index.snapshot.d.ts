@@ -31,7 +31,7 @@ export { isTruthy }
 export { omit }
 export { prependLeadingSlash }
 export { Prettify }
-export { pRetry as promiseRetry }
+export { promiseRetry }
 export { RemoveIndexSignature }
 export { sanitizeIdentifier }
 export { toCamelCase }
