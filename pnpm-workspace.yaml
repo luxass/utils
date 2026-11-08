@@ -8,7 +8,7 @@ blockExoticSubdeps: true
 catalogs:
   dev:
     "@types/node": 26.6.6
-    oxfmt: 0.54.0
+    oxfmt: 0.76.0
     oxlint: 1.91.0
     oxlint-tsgolint: 7.0.2005
     publint: 0.3.21
