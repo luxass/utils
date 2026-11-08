@@ -15,7 +15,7 @@ catalogs:
     tsdown: 0.23.5
     typescript: 7.0.2
     vitest: 5.1.0
-    vitest-testdirs: 4.4.3
+    vitest-testdirs: 4.5.2
     tsnapi: 1.6.1
 
   prod:
