@@ -19,7 +19,7 @@ catalogs:
     tsnapi: 0.3.3
 
   prod:
-    p-retry: 8.0.0
+    p-retry: 9.0.0
 minimumReleaseAgeExclude:
   # Renovate security update: pnpm@11.8.0 || 11.11.0
   - pnpm@11.8.0 || 11.11.0
